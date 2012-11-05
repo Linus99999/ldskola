@@ -81,9 +81,31 @@ if (type == 6):
     List.append(mitten)
     count = 0
     while(count < total):
-        test.write("%s\n"%list[count]
+        test.write("%s\n"%List[count])
         count = count + 1
-
+if (type == 5):
+    test = open("decHill.txt", "w")
+    facit = open("fdecHill.txt", "w")
+    listtemp = []
+    test.write("%s\n"%total)
+    
+    while (count < ((total/2)+(total % 2))):
+        ran = random.randint(intFrom,intTo)
+        List.insert(count,ran)
+        count = count + 1
+    count = 0
+    while (count < (total/2)):
+        ran = random.randint(intFrom,intTo)
+        listtemp.insert(count,ran)
+        count = count + 1        
+    List.sort()
+    listtemp.sort()
+    List = List + listtemp
+    List.reverse()
+    y = 0
+    while(y < total):
+        test.write("%s\n"%List[y])
+        y = y + 1
 
 
 
