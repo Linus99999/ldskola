@@ -66,6 +66,23 @@ if (type == 2):
         test.write("%s\n"%List[y])
         y = y + 1
     
+if (type == 6):
+    test = open("midmiss.txt", "w")
+    facit = open("fmidmiss.txt", "w")
+    test.write("%s\n"%total)
+
+    while(count < total):
+        ran = random.randint(intFrom,intTo)
+        List.insert(count,ran)
+        count = count + 1
+    List.sort()
+    mitten = total/2
+    mitten = List.pop(mitten)
+    List.append(mitten)
+    count = 0
+    while(count < total):
+        test.write("%s\n"%list[count]
+        count = count + 1
 
 
 
