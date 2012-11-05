@@ -70,7 +70,7 @@ if (type == 6):
     test = open("midmiss.txt", "w")
     facit = open("fmidmiss.txt", "w")
     test.write("%s\n"%total)
-
+#HEJSAN!!!!!!!!!!!!!!!!!!!
     while(count < total):
         ran = random.randint(intFrom,intTo)
         List.insert(count,ran)
