@@ -49,12 +49,14 @@ if (type == 3):
         List.insert(count,ran)
         count = count + 1
     List.sort()
+    listtemp = List
     beginning = List.pop(0)
+    List.append(beginning)
     y = 0
-    while(y < (total-1)):
+    while(y < total):
         test.write("%s\n"%List[y])
         y = y + 1
-    test.write("%s\n"%beginning)
+    
 
 
 if (type == 4):
@@ -166,8 +168,7 @@ if (type == 9):
 
 
 
-if (type == 3):
-    total = total - 1
+
 
 List.sort()
 x = 0
