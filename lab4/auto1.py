@@ -15,6 +15,7 @@ def compare(x):
 #9 Slumpvis
 passed = 0
 failed = 0
+total = 0
 x = time.time()
 os.system("./sort1 < 1.txt > output.txt")
 if (compare("f1.txt")):
@@ -357,5 +358,9 @@ else:
     failed = failed + 1
 print("sort6 time :",time.time()-x)
 
-print("Passed: %d\n"%passed)
-print("Failed: %d\n"%failed)
+total = passed + failed
+
+print("\n")
+print("Total: %d"%total)
+print("Passed: %d"%passed)
+print("Failed: %d"%failed)
