@@ -13,7 +13,6 @@ while(count < total):
     test.write("%s\n"%str(ran))
     List.insert(count,ran)
     count = count + 1
-    ran = random.randint(intFrom, intTo)
 List.sort()
 x = 0
 while(x < total):
@@ -22,10 +21,10 @@ while(x < total):
 
 test = open("2.txt", "w")
 facit = open("f2.txt", "w")
-
 listtemp = []
+List = []
 test.write("%s\n"%total)
-
+count = 0
 while (count < ((total/2)+(total % 2))):
     ran = random.randint(intFrom,intTo)
     List.insert(count,ran)
@@ -50,14 +49,15 @@ while(x < total):
 
 test = open("3.txt", "w")
 facit = open("f3.txt", "w")
-
+List = []
 test.write("%s\n"%total)
+count = 0
 while (count < total):
     ran = random.randint(intFrom,intTo)
     List.insert(count,ran)
     count = count + 1
 List.sort()
-listtemp = List
+
 beginning = List.pop(0)
 List.append(beginning)
 y = 0
@@ -92,8 +92,9 @@ while(x < total):
 
 test = open("5.txt", "w")
 facit = open("f5.txt", "w")
-
+List = []
 listtemp = []
+count = 0
 test.write("%s\n"%total)
 while (count < ((total/2)+(total % 2))):
     ran = random.randint(intFrom,intTo)
@@ -120,8 +121,9 @@ while(x < total):
 
 test = open("6.txt", "w")
 facit = open("f6.txt", "w")
-
+List = []
 test.write("%s\n"%total)
+count = 0
 while(count < total):
     ran = random.randint(intFrom,intTo)
     List.insert(count,ran)
@@ -165,8 +167,9 @@ test = open("8.txt", "w")
 facit = open("f8.txt", "w")
 
 listtemp = []
+List = []
 test.write("%s\n"%total)
-
+count = 0
 while (count < ((total/2)+(total % 2))):
     ran = random.randint(intFrom,intTo)
     List.insert(count,ran)
@@ -188,11 +191,11 @@ List.sort()
 x = 0
 while(x < total):
     facit.write("%s\n"%List[x])
-    x = x + 1
-    
+    x = x + 1    
 test = open("9.txt", "w")
 facit = open("f9.txt", "w")
-
+count = 0
+List = []
 test.write("%s\n"%total)
 while (count < total):
     ran = random.randint(intFrom,intTo)

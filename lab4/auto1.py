@@ -70,7 +70,7 @@ if (compare("f9.txt")):
 else:
     print ("sort1 failed 9.")
     failed = failed + 1
-print(time.time()-x)
+print("sort1 time :",time.time()-x)
 #######
 x = time.time()
 os.system("./sort2 < 1.txt > output.txt")
@@ -127,7 +127,7 @@ if (compare("f9.txt")):
 else:
     print ("sort2 failed 9.")
     failed = failed + 1
-print(time.time()-x)
+print("sort2 time :",time.time()-x)
 #######
 x = time.time()
 os.system("./sort3 < 1.txt > output.txt")
@@ -184,7 +184,7 @@ if (compare("f9.txt")):
 else:
     print ("sort3 failed 9.")
     failed = failed + 1
-print(time.time()-x)
+print("sort3 time :",time.time()-x)
 #######
 x = time.time()
 os.system("./sort4 < 1.txt > output.txt")
@@ -241,7 +241,7 @@ if (compare("f9.txt")):
 else:
     print ("sort4 failed 9.")
     failed = failed + 1
-print(time.time()-x)
+print("sort4 time :",time.time()-x)
 #######
 x = time.time()
 os.system("./sort5 < 1.txt > output.txt")
@@ -298,7 +298,7 @@ if (compare("f9.txt")):
 else:
     print ("sort5 failed 9.")
     failed = failed + 1
-print(time.time()-x)
+print("sort5 time :",time.time()-x)
 #######
 x = time.time()
 os.system("./sort2 < 1.txt > output.txt")
@@ -355,7 +355,7 @@ if (compare("f9.txt")):
 else:
     print ("sort6 failed 9.")
     failed = failed + 1
-print(time.time()-x)
+print("sort6 time :",time.time()-x)
 
 print("Passed: %d\n"%passed)
 print("Failed: %d\n"%failed)
