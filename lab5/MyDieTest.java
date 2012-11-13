@@ -4,6 +4,9 @@ import java.util.Scanner;
 public class MyDieTest {
 
     
+    public static boolean equals(Die tarning1, Die tarning2) {
+	return (tarning1.roll() == tarning2.roll());
+	    }
     
     public static void main(String [] args) {
 	int antal;	
@@ -19,15 +22,18 @@ public class MyDieTest {
 	    index++;  
 	}
 	// 5
-	Die die = new Die();
-	System.out.println(die.get());
+	// Die die = new Die();
+	 System.out.println(Dice.get());
 	// 6
 	Die dies = new Die(-12);
 	// 7
 	Die d = new Die();
+	d.roll();
 	System.out.println(d);
 	// 8
+	Die Dice1 = new Die(antal);
 	
+	System.out.println(equals(Dice,Dice1));
 
 	
 

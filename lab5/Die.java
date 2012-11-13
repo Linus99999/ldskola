@@ -17,19 +17,16 @@ public class Die {
   }
 
     public int roll() {
-      return value =  (int) (Math.random()*numberOfSides) + 1;
+      return value = (int) (Math.random()*numberOfSides) + 1;
   }
     
     public int get() { 
-      return roll(); 
+      return numberOfSides; 
   }
     public String toString() {
       return "Die(" + value + ")";
   }
-    public boolean equals(Die tarning) {
-	
-    }
-
+   
 
   public static void main(String [] args) {
       Scanner sc = new Scanner(System.in);
