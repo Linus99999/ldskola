@@ -35,8 +35,14 @@ public class MyDieTest {
 	
 	System.out.println(equals(Dice,Dice1));
 
+
+	PairOfDices Pair = new PairOfDices(antal);
+	Pair.roll();
+	System.out.println(Pair);
 	
 
+	System.out.println("pair get: " + Pair.get1());
+	System.out.println("pair get: " + Pair.get2());
     }
 
 
