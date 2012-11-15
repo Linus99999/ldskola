@@ -16,15 +16,18 @@ public class Die {
       }
   }
 
+  public boolean equals(Die tarning1) {
+	return (value == tarning1.get());
+	    }
     public int roll() {
       return value = (int) (Math.random()*numberOfSides) + 1;
   }
     
     public int get() { 
-      return numberOfSides; 
+      return value; 
   }
     public String toString() {
-      return "Die(" + value + ")";
+      return "" + value ;
   }
    
 
