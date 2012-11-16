@@ -5,7 +5,7 @@
   Följande klasser skall användas: 
 
      Car representerar fordon
-         ankomsttid och destination som sätts när objektet skapas
+         ankomsttid och destination som sätts när objektet 	skapas
 
      Light representerar ljussignaler
          Se nedan
@@ -14,7 +14,7 @@
          En väg representeras av en array där varje element
 	 antingen är tomt eller innehåller en referens till 
          ett bil-objekt.
-         OBS: Klassen Lane påminner om kömekanismen i föregående
+         OBS: Klassen Lane påminner om kömekanismen i 		 	föregående
          uppgift men den skiljer sig också i flera avseende.
          I denna klass ställs nya bilar i ena änden av ARRAYEN
          och inte närmast efter den som finns där. I kömekanismen        
