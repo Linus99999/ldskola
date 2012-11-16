@@ -1,0 +1,53 @@
+
+1, Är koden välstrukturerad samt stilistiskt och formatteringsmässigt konsekvent?
+
+
+2, Finns det “död kod” eller metoder/rutiner som inte anropas eller behövs?
+
+
+3, Finns det block av (mer eller mindre) upprepad kod som kunde extraheras och kapslas in i en metod?
+
+4, Används symboler istället för ”magiska nummer” eller strängkonstanter?
+
+
+5, Finns det klasser/metoder som är väldigt omfattande och/eller komplicerade och borde brytas
+upp i fler mindre klasser/metoder/rutiner?
+
+
+Variabler
+
+
+1, Har alla variabler definierats med vettiga namn som är meningsfulla, tydliga och konsekventa?
+
+2, Initieras alla variabler med vettiga värden?
+
+3, Finns det redundanta variabler eller variabler som inte används?
+
+
+
+Loopar och villkorssatser
+
+
+1, Ar alla loopar, villkorssatser och logiska uttryck kompletta, korrekta och korrekt nästlade?
+
+2, Testas de vanligaste fallen först i if . . . elseif . . . -kjedor?
+
+3, Har alla case-satser en default-klausul?
+
+
+4, Är villkoren för loopars terminering uppenbara och alltid uppnåeliga?
+
+5, Initieras indexeringsvariabler korrekt innan de loopar där de används?
+
+
+6, Finns det uttryck och satser inuti loopar som kunde brytas ut och placeras utanför loopen?
+
+Defensiv programmering
+
+1, Testas indexeringsvariabler och pekare korrekt mot gränsvärdena f ör arrayer, listor, etc.?
+
+2, Kontrolleras att indata (från filer, terminalen, etc.) rr valida och komplett?
+
+3, Städas minne (alt. referenser) till allt allokerat data bort korrekt?
+
+4, Kontrolleras att filer som programmet öppnar existerar innan programmet gör åtkomst till dem?
