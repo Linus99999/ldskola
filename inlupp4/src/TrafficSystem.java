@@ -16,11 +16,11 @@ public class TrafficSystem {
     // destinationer...)
 
     // Diverse attribut för statistiksamling
-    ....    
+        
     
     private int time = 0;
 
-    public TrafficSystem() {...}
+    public TrafficSystem() }
 
     public readParameters() {
 	// Läser in parametrar för simuleringen

@@ -6,7 +6,7 @@ public class Simulation {
 	// Skapar ett TrafficSystem
 	// Utför stegningen, anropar utskriftsmetoder
 
-	...
+	
 
     }
 	
