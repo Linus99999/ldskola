@@ -1,50 +1,107 @@
 
 public class TrafficSystem {
 
-	// Definierar de vägar och signaler som ingår i det 
+	// Definierar de vï¿½gar och signaler som ingï¿½r i det 
     // system som skall studeras.
     // Samlar statistik
     
-    // Attribut som beskriver beståndsdelarna i systemet
+    // Attribut som beskriver bestï¿½ndsdelarna i systemet
     private Lane  r0;
     private Lane  r1;
     private Lane  r2;
     private Light s1;
     private Light s2;
 
-    // Diverse attribut för simuleringsparametrar (ankomstintensiteter,
+    // Diverse attribut fï¿½r simuleringsparametrar (ankomstintensiteter,
     // destinationer...)
 
-    // Diverse attribut för statistiksamling
+    // Diverse attribut fï¿½r statistiksamling
         
     
     private int time = 0;
+  
 
-    public TrafficSystem() }
+    public TrafficSystem() {
+
+    	r0 = new Lane(10);
+    	r1 = new Lane(6);
+    	r2 = new Lane(6);
+    	s1 = new Light(10,6);
+    	s2 = new Light(10,6);
+
+    }
 
     public readParameters() {
-	// Läser in parametrar för simuleringen
-	// Metoden kan läsa från terminalfönster, dialogrutor
-	// eller från en parameterfil. Det sista alternativet
-	// är att föredra vid uttestning av programmet eftersom
-	// man inte då behöver mata in värdena vid varje körning.
-        // Standardklassen Properties är användbar för detta. 
+	// Lï¿½ser in parametrar fï¿½r simuleringen
+	// Metoden kan lï¿½sa frï¿½n terminalfï¿½nster, dialogrutor
+	// eller frï¿½n en parameterfil. Det sista alternativet
+	// ï¿½r att fï¿½redra vid uttestning av programmet eftersom
+	// man inte dï¿½ behï¿½ver mata in vï¿½rdena vid varje kï¿½rning.
+        // Standardklassen Properties ï¿½r anvï¿½ndbar fï¿½r detta. 
     }
 
     public void step() {
-	// Stega systemet ett tidssteg m h a komponenternas step-metoder
-	// Skapa bilar, lägg in och ta ur på de olika Lane-kompenenterna
-    }
+    	if (s1.isGreen()) {
+    		r1.getFirst();
+    		r1.step();
+    	}
+    	if (s2.isGreen()){
+    		r2.getFirst();
+    		r2.step();
+    	}
 
+    	if(r0.firstCar()!=null){
+    		Car car = r0.getFirst();
+    		if(car.getdest() == 1 && r1.lastFree()){
+    			r1.putLast(car);
+    		}
+    		if(car.getdest() == 2 && r2.lastFree()){
+    			r2.putLast(car);
+    		}
+    	}
+    	r0.step();
+    		
+    		
+    	
+    	if(Math.random()*2 < 1){
+    		Car c = new Car(time,(int)(Math.random()*2)+1);
+    		r0.putLast(c);
+    	}
+
+    	s1.step();
+    	s2.step();
+    	time++;
+    
+
+	// Stega systemet ett tidssteg m h a komponenternas step-metoder
+	// Skapa bilar, lï¿½gg in och ta ur pï¿½ de olika Lane-kompenenterna
+    }
+    
+    
     public void printStatistics() {
-	// Skriv statistiken samlad så här långt
+	// Skriv statistiken samlad sï¿½ hï¿½r lï¿½ngt
     }
 
     public void print() {
-	// Skriv ut en grafisk representation av kösituationen
-	// med hjälp av klassernas toString-metoder
+    	System.out.println();
+    	System.out.print(r1);
+    	System.out.println(r0);
+    	System.out.println(r2);
+    	
+	// Skriv ut en grafisk representation av kï¿½situationen
+	// med hjï¿½lp av klassernas toString-metoder
     }
 
-
+    public static void main(String[] args){
+    	
+    	TrafficSystem tS = new TrafficSystem();
+    	int x = 0;
+    	while (x < 30) {
+    	tS.step();
+    	tS.print();
+    	x++;
+    	}
+    	
+    }
 	
 }
