@@ -1,4 +1,3 @@
-
 public class TrafficSystem {
 
 	// Definierar de v�gar och signaler som ing�r i det 
@@ -19,7 +18,7 @@ public class TrafficSystem {
         
     
     private int time = 0;
-  
+    private int intense = 0;
 
     public TrafficSystem() {
 
@@ -32,6 +31,8 @@ public class TrafficSystem {
     }
 
     public readParameters() {
+    	
+    	
 	// L�ser in parametrar f�r simuleringen
 	// Metoden kan l�sa fr�n terminalf�nster, dialogrutor
 	// eller fr�n en parameterfil. Det sista alternativet
@@ -53,19 +54,24 @@ public class TrafficSystem {
     	if(r0.firstCar()!=null){
     		Car car = r0.getFirst();
     		if(car.getdest() == 1 && r1.lastFree()){
-    			r1.putLast(car);
+    			try {r1.putLast(car);}
+    			catch (Lane.OverflowException e){}
+    			
     		}
     		if(car.getdest() == 2 && r2.lastFree()){
-    			r2.putLast(car);
+    			try {r2.putLast(car);}
+    			catch (Lane.OverflowException e){}
     		}
     	}
     	r0.step();
+    	
     		
     		
     	
-    	if(Math.random()*2 < 1){
+    	if(Math.random()*intense < 1){
     		Car c = new Car(time,(int)(Math.random()*2)+1);
-    		r0.putLast(c);
+    		try {r0.putLast(c);}
+			catch (Lane.OverflowException e){}
     	}
 
     	s1.step();
@@ -84,9 +90,15 @@ public class TrafficSystem {
 
     public void print() {
     	System.out.println();
-    	System.out.print(r1);
-    	System.out.println(r0);
-    	System.out.println(r2);
+    	if(s1.isGreen()){
+    	System.out.print("G");}
+    	else{System.out.print("R");}
+    	System.out.print(r1 + "|");
+    	System.out.println(r0 + " <-");
+    	if(s2.isGreen()){
+        System.out.print("G");}
+        else{System.out.print("R");}
+    	System.out.println(r2 + "|" + " <-");
     	
 	// Skriv ut en grafisk representation av k�situationen
 	// med hj�lp av klassernas toString-metoder
