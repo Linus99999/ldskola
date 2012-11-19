@@ -1,31 +1,45 @@
-
+/**
+ * 
+ * @author linus & david
+ * Represents a trafficlight.
+ */
 public class Light {
 
+/**
+ * Attributes that represents when and how often the trafficlight should switch from red to green and keep it green. 
+ */
 	private int period;
 	private int time;  // Intern klocka: 0, 1, ... period-1, 0, 1 ...
-	private int green; // Signalen grön när time<green 		period typ 30 sek green typ 15 sek...
+	private int green; // Signalen grï¿½n nï¿½r time<green 		period typ 30 sek green typ 15 sek...
     
+/**
+ * Sets the Light-attributes
+ * @param period
+ * @param green
+ */
 	public Light(int period, int green) {
 		this.period = period;
 		this.green = green;
 		
 	}
-
+/**
+ * Steps the time forward, resets if it equal to period.
+ */
 	public void step() { 
 		if (time == period){
 			time = 0;			
-		}else {
+		}
+		else {
 			time++;
 		}
     }
-
+/**
+ * 
+ * @return whether or not the light is green.
+ */
     public boolean isGreen()   {
     	//return (time<green)? True : False; 
-    	if(time<green){
-    		return true;}
-    	else{
-    		return false;}
-    	
+    	return (time<green);
 	// Returnerar true om time<green, annars false
     }
 

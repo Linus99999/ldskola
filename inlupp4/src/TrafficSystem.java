@@ -1,29 +1,37 @@
 import java.util.Scanner;
+/**
+ * 
+ * @author linus & david
+ *
+ * Defines the roads and signals that is included in the system.
+ * Gathers statistics. 
+ */
 public class TrafficSystem {
 
-	// Definierar de v�gar och signaler som ing�r i det 
-	// system som skall studeras.
-	// Samlar statistik
 
-	// Attribut som beskriver best�ndsdelarna i systemet
+
+	/**
+	 *  Attributes that describes different parts in the systemet
+	 */
 	private Lane  r0;
 	private Lane  r1;
 	private Lane  r2;
 	private Light s1;
 	private Light s2;
 
-	// Diverse attribut f�r simuleringsparametrar (ankomstintensiteter,
-	// destinationer...)
-
-	// Diverse attribut f�r statistiksamling
-
-
+	/**
+	 *  Miscellaneous attributes for simulationparameters (car intensity, time...)
+	 *  Miscellaneous attributes for statistics gathering.
+	 */
 	private int time = 0;
 	private int intense;
 	private int cars = 0;	
 	private int carsOut = 0;
 	private int t = 0;
 	int max;
+	/**
+	 * Creates a standard TrafficSystem.
+	 */
 	public TrafficSystem() {
 
 		r0 = new Lane(10);
@@ -33,7 +41,10 @@ public class TrafficSystem {
 		s2 = new Light(10,6);
 		intense = 2;
 	}
-
+/**
+ * Creates a TraficSystem from either standard input or a properties-file.
+ * @param n is a integer that is either 1 or 2 depending if you want to use standard in or a properties-file.
+ */
 	public TrafficSystem(int n) {
 		if (n == 1) {
 		Scanner sc = new Scanner(System.in);
@@ -69,7 +80,9 @@ public class TrafficSystem {
 				// man inte d� beh�ver mata in v�rdena vid varje k�rning.
 				// Standardklassen Properties �r anv�ndbar f�r detta. 
 	}
-
+/**
+ * Steps the trafficsystem one step forward.
+ */
 	public void step() {
 		if (s1.isGreen()) {
 			if (r1.firstCar() != null){
@@ -127,7 +140,9 @@ public class TrafficSystem {
 		// Skapa bilar, l�gg in och ta ur p� de olika Lane-kompenenterna
 	}
 
-
+/**
+ * Prints the current statistics from the trafficsystem.
+ */
 	public void printStatistics() {
 		System.out.println("Tid: " + time);
 		System.out.println("Antal bilar in: " + cars);
@@ -144,7 +159,9 @@ public class TrafficSystem {
 		
 		// Skriv statistiken samlad s� h�r l�ngt
 	}
-
+/**
+ * Prints a graphical representation of the trafficsituation.
+ */
 	public void print() {
 		System.out.println();
 		if(s1.isGreen()){
