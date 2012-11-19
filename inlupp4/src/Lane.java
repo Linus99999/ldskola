@@ -14,6 +14,17 @@ public class Lane {
 	    }
 
 	    public void step() {
+	    	x = 1;
+	    	while (x < theLane.length) {
+	    		if (theLane[x-1] == null && theLane[x] != null) { 
+	    			theLane[x-1] = theLane[x];
+	    			theLane[x] = null;
+	    			x++;
+	    		}
+	    		else { 
+	    			x++;
+	    	}
+	    }
 		// Stega fram alla fordon (utom det p� plats 0) ett steg 
 	        // (om det g�r). (Fordonet p� plats 0 tas bort utifr�n 
 		// mm h a metoden nedan.)
@@ -21,7 +32,7 @@ public class Lane {
 
 	    public Car getFirst() {
 	    	Car temp = theLane[0];
-	    		theLane[0] = NULL;
+	    		theLane[0] = null;
 	    		return temp;
 		// Returnera och tag bort bilen som st�r f�rst
 	    }
@@ -33,9 +44,15 @@ public class Lane {
 
 
 	    public boolean lastFree() {
-	    	return !(theLane[theLane.length]);
-		// Returnera true om sista platsen ledig, annars false
+	    	if (theLane[theLane.length-1] == null) 
+	    	{ 
+	    		return true;
+	    	}
+	    	else {
+	    		return false; 
+	    	}
 	    }
+		// Returnera true om sista platsen ledig, annars false
 
 	    public void putLast(Car c) throws OverflowException {
 	    	theLane[theLane.length] = c;
@@ -43,8 +60,14 @@ public class Lane {
 		// (om det g�r).
 	    }
 
-	    public String toString() {}
+	    public String toString() {
+	    	return ""+theLane.length;
+	    }
 
 	
-	
+	public static void main(String [] args) {
+	Lane l = new Lane(3);
+	System.out.println(l);
+	System.out.println(l.lastFree());
+}
 }
