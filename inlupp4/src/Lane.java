@@ -2,9 +2,11 @@
 public class Lane {
 
 	public static class OverflowException extends RuntimeException {
+		
 		// Undantag som kastas n�r det inte gick att l�gga 
 		// in en ny bil p� v�gen
-	}
+		
+		}
 
 	private Car[] theLane;
 
@@ -52,13 +54,23 @@ public class Lane {
 			return false; 
 		}
 	}
+
 	// Returnera true om sista platsen ledig, annars false
 
 	public void putLast(Car c) throws OverflowException {
-		theLane[theLane.length] = c;
-		// St�ll en bil p� sista platsen p� v�gen
-		// (om det g�r).
+		
+		
+	if(theLane[theLane.length -1] != null){
+		throw new OverflowException();
+		
 	}
+	theLane[theLane.length-1] = c;
+		
+	
+	}
+	// St�ll en bil p� sista platsen p� v�gen
+			// (om det g�r).
+	
 
 	public String toString() {
 		String s = "";
@@ -69,7 +81,7 @@ public class Lane {
 			x++;
 			}
 			else {
-			s = s + "C";
+			s = s  + theLane[x].getdest();
 			x++;
 			}
 		}
