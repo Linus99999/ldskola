@@ -81,7 +81,7 @@ public class Lane {
 			x++;
 			}
 			else {
-			s = s  + theLane[x].getdest();
+			s = s  + theLane[x].getdestination();
 			x++;
 			}
 		}

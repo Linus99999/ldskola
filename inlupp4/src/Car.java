@@ -63,9 +63,5 @@ public class Car {
 }
 
 
-int max;
-if(time-borntime > max){
-	max = time - borntime;
-}
 
-}
+

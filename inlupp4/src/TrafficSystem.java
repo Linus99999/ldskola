@@ -23,6 +23,7 @@ public class TrafficSystem {
 	private int cars = 0;	
 	private int carsOut = 0;
 	private int t = 0;
+	int max;
 	public TrafficSystem() {
 
 		r0 = new Lane(10);
@@ -74,7 +75,11 @@ public class TrafficSystem {
 			if (r1.firstCar() != null){
 				carsOut++;
 				t += time-r1.firstCar().getbornTime();
+				if(time-r1.firstCar().getbornTime() > max){
+					max = time-r1.firstCar().getbornTime();
+				}
 			}
+			
 			r1.getFirst();
 			r1.step();
 		}
@@ -82,6 +87,9 @@ public class TrafficSystem {
 			if (r2.firstCar() != null) { 
 				carsOut++; 
 				t += time-r2.firstCar().getbornTime();
+				if(time-r2.firstCar().getbornTime() > max){
+					max = time-r2.firstCar().getbornTime();
+				}
 			}
 			r2.getFirst();
 			r2.step();
@@ -89,12 +97,12 @@ public class TrafficSystem {
 
 		if(r0.firstCar()!=null){
 			Car car = r0.getFirst();
-			if(car.getdest() == 1 && r1.lastFree()){
+			if(car.getdestination() == 1 && r1.lastFree()){
 				try {r1.putLast(car); cars++;}
 				catch (Lane.OverflowException e){}
 
 			}
-			if(car.getdest() == 2 && r2.lastFree()){
+			if(car.getdestination() == 2 && r2.lastFree()){
 				try {r2.putLast(car); cars++;}
 				catch (Lane.OverflowException e){}
 			}
@@ -124,8 +132,15 @@ public class TrafficSystem {
 		System.out.println("Tid: " + time);
 		System.out.println("Antal bilar in: " + cars);
 		System.out.println("Antal bilar ut: " + carsOut);
+		if (max >0){
+		System.out.println("Max tid för en bil: " + max);
+		}else System.out.println("Max tid för en bil: Ingen bil har kört igenom.");
+		
 		try {System.out.println("Snittid: " + (t/carsOut));} 
 		catch (ArithmeticException e) { System.out.println("Snittid: Inga bilar ute än." );}
+		
+		
+
 		
 		// Skriv statistiken samlad s� h�r l�ngt
 	}
@@ -148,9 +163,9 @@ public class TrafficSystem {
 
 	public static void main(String[] args){
 
-		TrafficSystem tS = new TrafficSystem(1);
+		TrafficSystem tS = new TrafficSystem();
 		int x = 0;
-		while (x < 100) {
+		while (x < 30) {
 			tS.step();
 			tS.print();
 			x++;
