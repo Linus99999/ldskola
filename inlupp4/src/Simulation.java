@@ -4,24 +4,25 @@ public class Simulation {
 
 
 	public static void main(String [] args) throws IOException {
-		TrafficSystem tS;
+		TrafficSystem tS = null;
 		// Skapar ett TrafficSystem
 		// Utf�r stegningen, anropar utskriftsmetoder
 		Scanner sc = new Scanner(System.in);
-		System.out.print("Skriv 1 om du vill ha ett standard trafiksystem. 2 om du vill lägga in egna värden. 3 om du vill lägga in egna värden från en fil.");
+		System.out.print("1 om du vill ha ett standard trafiksystem.\n2 om du vill lägga in egna värden.\n3 om du vill lägga in egna värden från en properties-fil.\n4 om du vill skapa en properties-fil.");
 		int type = sc.nextInt();
 		if (type == 1) { 
-			 tS = new TrafficSystem(); 
+			tS = new TrafficSystem(); 
 		}
 		else if (type == 2) {
 			tS = new TrafficSystem(1);
 		} 
-		else {
+		else if (type == 3) {
 			System.out.print("Ange sökväg till filen: ");
-			tS = new TrafficSystem(sc.nextLine());
-
+			String props = sc.next();
+			tS = new TrafficSystem(props);
 		}
-		System.out.print("Hur många steg vill du simulera?");
+		else { new Props(); return; }
+		System.out.print("Hur många steg vill du simulera? ");
 		int x = 0;
 		int steps = sc.nextInt();
 		while (x < steps) {
