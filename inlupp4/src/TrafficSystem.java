@@ -106,6 +106,8 @@ public class TrafficSystem {
 
 			r1.getFirst();
 			r1.step();
+		}else {
+			r1.step();
 		}
 		if (s2.isGreen()){
 			if (r2.firstCar() != null) { 
@@ -117,17 +119,19 @@ public class TrafficSystem {
 			}
 			r2.getFirst();
 			r2.step();
+		}else{
+			r2.step();
 		}
 
 		if(r0.firstCar()!=null){
 			Car car = r0.getFirst();
 			if(car.getdestination() == 1 && r1.lastFree()){
-				try {r1.putLast(car); cars++;}
+				try {r1.putLast(car);}
 				catch (Lane.OverflowException e){}
 
 			}
 			if(car.getdestination() == 2 && r2.lastFree()){
-				try {r2.putLast(car); cars++;}
+				try {r2.putLast(car);}
 				catch (Lane.OverflowException e){}
 			}
 		}
