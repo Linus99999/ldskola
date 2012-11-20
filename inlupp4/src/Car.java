@@ -44,7 +44,9 @@ public class Car {
 	}
 	
 
-	    
+	    /**
+	     * @return bornTime and destination
+	     */
 	public String toString() {
 		return "Car: \nbornTime=" + bornTime + " \ndest =" + destination;
 		

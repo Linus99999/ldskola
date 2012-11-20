@@ -1,5 +1,10 @@
 import java.io.*;
 import java.util.*;
+/**
+ * @author linus & david
+ *
+ * Creates a properties-file for a Trafficsystem.
+ */
 public class Props {
 public Props() throws IOException {
 	Properties p = new Properties();

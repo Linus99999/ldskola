@@ -1,0 +1,9 @@
+#props
+#Mon Nov 19 22:48:22 CET 2012
+green2=15
+r2=25
+green1=10
+r1=25
+r0=25
+intense=2
+period=20

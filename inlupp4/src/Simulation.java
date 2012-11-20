@@ -1,7 +1,12 @@
 import java.io.IOException;
 import java.util.Scanner;
+/**
+ * 
+ * @author linus & david
+ *
+ * Starts a Trafficsimulation based in your inputs.
+ */
 public class Simulation {
-
 
 	public static void main(String [] args) throws IOException {
 		TrafficSystem tS = null;
