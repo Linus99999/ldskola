@@ -9,10 +9,11 @@ public class Simulation {
 		// Utf�r stegningen, anropar utskriftsmetoder
 		Scanner sc = new Scanner(System.in);
 		System.out.print("Skriv 1 om du vill ha ett standard trafiksystem. 2 om du vill lägga in egna värden. 3 om du vill lägga in egna värden från en fil.");
-		if (sc.nextInt() == 1) { 
+		int type = sc.nextInt();
+		if (type == 1) { 
 			 tS = new TrafficSystem(); 
 		}
-		else if (sc.nextInt() == 2) {
+		else if (type == 2) {
 			tS = new TrafficSystem(1);
 		} 
 		else {
@@ -22,7 +23,8 @@ public class Simulation {
 		}
 		System.out.print("Hur många steg vill du simulera?");
 		int x = 0;
-		while (x < sc.nextInt()) {
+		int steps = sc.nextInt();
+		while (x < steps) {
 			tS.step();
 			tS.print();
 			x++;
