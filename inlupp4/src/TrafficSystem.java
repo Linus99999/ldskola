@@ -46,8 +46,7 @@ public class TrafficSystem {
 	 * @param n is a integer that is either 1 or 2 depending if you want to use standard in or a properties-file.
 	 * @throws IOException 
 	 */
-	public TrafficSystem(int n) throws IOException {
-		if (n == 1) {
+	public TrafficSystem(int n) {
 			Scanner sc = new Scanner(System.in);
 			System.out.print("Ankomstintensitet: ");
 			intense = sc.nextInt();
@@ -68,27 +67,29 @@ public class TrafficSystem {
 			r2 = new Lane(v2);
 			s1 = new Light(period,green1);
 			s2 = new Light(period,green2);
-
-
-		}
-		else {
-			
-			InputStream d = new FileInputStream("prop.txt");
-			Properties p = new Properties();
-			p.load(d);
-			r0 = new Lane(Integer.parseInt(p.getProperty("r0")));
-			r1 = new Lane(Integer.parseInt(p.getProperty("r1")));
-			r2 = new Lane(Integer.parseInt(p.getProperty("r2")));
-			s1 = new Light(Integer.parseInt(p.getProperty("period")),Integer.parseInt(p.getProperty("green1")));
-			s2 = new Light(Integer.parseInt(p.getProperty("period")),Integer.parseInt(p.getProperty("green2")));
-			intense = Integer.parseInt(p.getProperty("intense"));
-		}
+		
 		// L�ser in parametrar f�r simuleringen
 		// Metoden kan l�sa fr�n terminalf�nster, dialogrutor
 		// eller fr�n en parameterfil. Det sista alternativet
 		// �r att f�redra vid uttestning av programmet eftersom
 		// man inte d� beh�ver mata in v�rdena vid varje k�rning.
 		// Standardklassen Properties �r anv�ndbar f�r detta. 
+	}
+	/**
+	 * Creates a trafficsystem based on the data from a properties file.
+	 * @param prop is the searchpath for the properties file.
+	 * @throws IOException 
+	 */
+	public TrafficSystem (String prop) throws IOException {	
+		InputStream d = new FileInputStream(prop);
+		Properties p = new Properties();
+		p.load(d);
+		r0 = new Lane(Integer.parseInt(p.getProperty("r0")));
+		r1 = new Lane(Integer.parseInt(p.getProperty("r1")));
+		r2 = new Lane(Integer.parseInt(p.getProperty("r2")));
+		s1 = new Light(Integer.parseInt(p.getProperty("period")),Integer.parseInt(p.getProperty("green1")));
+		s2 = new Light(Integer.parseInt(p.getProperty("period")),Integer.parseInt(p.getProperty("green2")));
+		intense = Integer.parseInt(p.getProperty("intense"));
 	}
 	/**
 	 * Steps the trafficsystem one step forward.
@@ -157,9 +158,9 @@ public class TrafficSystem {
 		System.out.println("Tid: " + time);
 		System.out.println("Antal bilar in: " + cars);
 		System.out.println("Antal bilar ut: " + carsOut);
-		if (max >0){
+		if (max >0) {
 			System.out.println("Max tid för en bil: " + max);
-		}else System.out.println("Max tid för en bil: Ingen bil har kört igenom.");
+		} else System.out.println("Max tid för en bil: Ingen bil har kört igenom.");
 
 		try {System.out.println("Snittid: " + (t/carsOut));} 
 		catch (ArithmeticException e) { System.out.println("Snittid: Inga bilar ute än." );}
@@ -190,7 +191,7 @@ public class TrafficSystem {
 
 	public static void main(String[] args) throws IOException{
 
-		TrafficSystem tS = new TrafficSystem(2);
+		TrafficSystem tS = new TrafficSystem("prop.txt");
 		int x = 0;
 		while (x < 100) {
 			tS.step();
