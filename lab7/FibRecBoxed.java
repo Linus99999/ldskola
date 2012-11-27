@@ -1,15 +1,15 @@
-public class FibRec {
-    public static int fib(int n) {
+public class FibRecBoxed {
+    public static long fibR(long n) {
 	if (n==0) {
 	    return 0;
 	}
 	else if (n==1) {
 	    return 1; 
 	} else {
-	    return fib(n-1) + fib(n-2);
+	    return fibR(n-1) + fibR(n-2);
 	}
     }
     public static void main(String[] args) {
-	System.out.println(fib(50));
+	System.out.println(fibR(50));
     }
 }

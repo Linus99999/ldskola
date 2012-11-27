@@ -13,6 +13,6 @@ public class FibIter {
 	return answer;
     }
     public static void main(String[] args) {
-	System.out.print(fibi(30));
+	System.out.print(fibi(100));
     }
 }
