@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Knapp?</string>
+    <string name="app_name">Min Första Android App!</string>
+    <string name="gott_nytt_ar">GOTT NYTT ÅR!!</string>
+
+</resources>
