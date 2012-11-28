@@ -1,11 +1,11 @@
 
 // Denna klass implementerar ett enkelt program i Java. En boll
-// studsar inom en given rektangel. Din uppgift blir att utÃ¶ka detta
-// program med mÃ¶jlighet till fler bollar, mÃ¶jlighet att Ã¤ndra
-// storleken pÃ¥ rektangeln etc.
+// studsar inom en given rektangel. Din uppgift blir att utöka detta
+// program med möjlighet till fler bollar, möjlighet att ändra
+// storleken på rektangeln etc.
 
-// FÃ¶ljande rader Ã¤r till fÃ¶r att Java skall kunna fÃ¶rstÃ¥ och tolka
-// anvÃ¤ndandet av standardklasser som Color och JApplet.
+// Följande rader är till för att Java skall kunna förstå och tolka
+// användandet av standardklasser som Color och JApplet.
 //
 // Alla klasser och underpaket i paketen java.awt, java.awt.event samt
 // javax.swing kan nu refereras direkt.
@@ -16,7 +16,7 @@ import javax.swing.*;
 
 // Ball. Denna klass beskriver konceptet boll. En boll har en position
 // (givet av en koordinat (x,y)), en hastighet (givet av en
-// differential (dx,dy)) och en fÃ¤rg.
+// differential (dx,dy)) och en färg.
 
 class Ball {
     // Standardkonstanter (for alla instanser av Ball) 
@@ -33,17 +33,17 @@ class Ball {
     // Diameter (storlek) 
     private int diameter;
 
-    // FÃ¤rg 
+    // Färg 
     private Color color;
     
     private int growth;
     
     private int diametersize;
 
-    // BegrÃ¤nsande rektangulÃ¤ra omrÃ¥de inom vilket bollen studsar 
+    // Begränsande rektangulära område inom vilket bollen studsar 
     private Rectangle box;
 
-    // Konstruktion av nya bollar krÃ¤ver position och riktning 
+    // Konstruktion av nya bollar kräver position och riktning 
     public Ball( int x0, int y0, int dx0, int dy0 ) {
         x = x0;
         y = y0;
@@ -54,47 +54,47 @@ class Ball {
         diameter = defaultDiameter;
     }
 
-    // SÃ¤tt ny fÃ¤rg 
+    // Sätt ny färg 
     public void setColor( Color c ) {
         color = c;
     }
 
-    // SÃ¤tt nytt begrÃ¤nsande rektangulÃ¤rt omrÃ¥de 
+    // Sätt nytt begränsande rektangulärt område 
     public void setBoundingBox( Rectangle r ) {
         box = r;
     } 
-     // SÃ¤tt bollens storlek(Diameter)
+     // Sätt bollens storlek(Diameter)
      public void setNewSize(int diameter){
     	 this.diameter = diameter;
     	 
      }
    
 
-    // Rita ut en boll pÃ¥ givet grafiskt omrÃ¥de 
+    // Rita ut en boll på givet grafiskt område 
     public void paint( Graphics g ) {
     	
-        // Byt till bollens fÃ¤rg 
+        // Byt till bollens färg 
         g.setColor( color );
 
         // Bollen representeras som en fylld cirkel, dvs en ellips (oval)
-        // med lika hÃ¶jd och bredd 
+        // med lika höjd och bredd 
         
         
         g.fillOval( x, y, diameter, diameter );
         
     }
 
-    // BegrÃ¤nsa bollen inom det rektangulÃ¤ra omrÃ¥det. Uppdatera hastigheten
-    // om det behÃ¶vs.
+    // Begränsa bollen inom det rektangulära området. Uppdatera hastigheten
+    // om det behövs.
     void constrain() {
-        // Ge absoluta koordinater fÃ¶r det rektangulÃ¤ra omrÃ¥det
+        // Ge absoluta koordinater för det rektangulära området
         int x0 = box.x;
         int y0 = box.y;
         int x1 = x0 + box.width - diameter;
         int y1 = y0 + box.height - diameter;
 
-        // Ã„ndra hastighet och riktning om bollen Ã¤r utanfÃ¶r det
-        // rektangulÃ¤ra omrÃ¥det
+        // Ändra hastighet och riktning om bollen är utanför det
+        // rektangulära området
         if (x < x0)
             dx = Math.abs(dx);
         if (x > x1)
@@ -138,13 +138,13 @@ class Ball {
     }
 }
 
-// Klassen BallPanel definierar en rityta dÃ¤r bollarna ritas upp. Den
-// Ã¤rver klassen JPanel och implementerar ActionListener. Genom att
-// implementera ActionListener kan man lÃ¥ta en Timer med jÃ¤mna
-// mellanrum ge ett 'tick' dÃ¥ uppdatering av panelen ska gÃ¶ras.
+// Klassen BallPanel definierar en rityta där bollarna ritas upp. Den
+// ärver klassen JPanel och implementerar ActionListener. Genom att
+// implementera ActionListener kan man låta en Timer med jämna
+// mellanrum ge ett 'tick' då uppdatering av panelen ska göras.
 
 class BallPanel extends JPanel implements ActionListener {
-    // Bredd och hÃ¶jd  
+    // Bredd och höjd  
     private int width, height;
 
     // En boll 
@@ -158,7 +158,7 @@ class BallPanel extends JPanel implements ActionListener {
 
     // Initiera attributen
     public BallPanel (int width, int height) {
-        // Ta reda pÃ¥ bredd och hÃ¶jd fÃ¶r ritytan
+        // Ta reda på bredd och höjd för ritytan
         this.width = width;
         this.height = height;
 
@@ -168,7 +168,7 @@ class BallPanel extends JPanel implements ActionListener {
         ball1.setNewSize(20);
         ball1.setColor(Color.red);
         
-        // SÃ¤tt bollens rektangulÃ¤ra begrÃ¤nsande omrÃ¥de (bounding box)
+        // Sätt bollens rektangulära begränsande område (bounding box)
         ball.setBoundingBox( new Rectangle( 0, 0, width, height ) );
         ball1.setBoundingBox( new Rectangle( 0, 0, width-10, height-20 ) );
         // Starta timern.
@@ -177,27 +177,27 @@ class BallPanel extends JPanel implements ActionListener {
 
     // Uppdatera (anropas vid omritning, repaint())
     public void paintComponent( Graphics g ) {
-        // Rensa hela ritytan (med svart fÃ¤rg)
+        // Rensa hela ritytan (med svart färg)
         
         g.setColor( Color.black );
         g.fillRect( 0, 0, width, height );
 
-        // Rita ut bollen (pÃ¥ svart bakgrund)
+        // Rita ut bollen (på svart bakgrund)
         ball.paint( g );
         ball1.paint(g);
     }
 
-    // NÃ¤r vi fÃ¥r en signal frÃ¥n timern... 
+    // När vi får en signal från timern... 
     public void actionPerformed(ActionEvent e) {
         if(width != getWidth() || height != getHeight())
             wasResized(getWidth(),getHeight());
-        ball.action();  // GÃ¶r vad som Ã¤r relevant med bollen
+        ball.action();  // Gör vad som är relevant med bollen
         ball1.action();
-        repaint();      // GÃ¶r automatiskt ett anrop till
+        repaint();      // Gör automatiskt ett anrop till
                         // paintComponent()
     }
 
-    // Anropas om fÃ¶nstret Ã¤ndrar storlek
+    // Anropas om fönstret ändrar storlek
     public void wasResized( int newWidth, int newHeight ) {
         width = newWidth;
         height = newHeight;
@@ -208,8 +208,8 @@ class BallPanel extends JPanel implements ActionListener {
 }
 
 
-// Denna klass definierar det fÃ¶nster som skapas av programmet. Ett
-// fÃ¶nster (JFrame) skapas dÃ¤r en instans av BallPanel (ritytan)
+// Denna klass definierar det fönster som skapas av programmet. Ett
+// fönster (JFrame) skapas där en instans av BallPanel (ritytan)
 // placeras.
 
 public class BallWorld extends JFrame {
@@ -219,12 +219,12 @@ public class BallWorld extends JFrame {
 
     public BallWorld () {
 
-        // LÃ¤gg till bollpanelen i mitten pÃ¥ ramen.
+        // Lägg till bollpanelen i mitten på ramen.
         Container c = getContentPane();
         c.add(panel, BorderLayout.CENTER);
 
         setSize(200, 200);
-        // GÃ¶r sÃ¥ att ramen syns.
+        // Gör så att ramen syns.
         setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
@@ -235,4 +235,4 @@ public class BallWorld extends JFrame {
     	
         BallWorld world = new BallWorld();
        }
-   }
+   }//La till en kommentar här.
