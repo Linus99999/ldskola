@@ -6,12 +6,12 @@ import java.awt.*;
     
 public class Jonny extends JApplet implements ActionListener{
 	  	private JLabel etiketten = new JLabel("Vad heter du?");
-	  	private JTextField inmatningsfÃ¤ltet = new JTextField(6);
+	  	private JTextField inmatningsfältet = new JTextField(6);
 	  	
 	  	private JLabel utskriften = new JLabel();
-	  	private JButton knappen1 = new JButton("KÃ¶r!");
-	  	private JButton knappen2 = new JButton("KÃ¶r!");
-	  	private JButton knappen3 = new JButton("KÃ¶r!");
+	  	private JButton knappen1 = new JButton("Kör!");
+	  	private JButton knappen2 = new JButton("Kör!");
+	  	private JButton knappen3 = new JButton("Kör!");
 	  	
 	  	
 	  public void init(){
@@ -21,7 +21,7 @@ public class Jonny extends JApplet implements ActionListener{
 		  Container cp = getContentPane();
 		  cp.setLayout(new FlowLayout());
 		  cp.add(etiketten);
-		  cp.add(inmatningsfÃ¤ltet);
+		  cp.add(inmatningsfältet);
 		  cp.add(knappen1);
 		  cp.add(knappen2);
 		  cp.add(knappen3);
@@ -33,7 +33,7 @@ public class Jonny extends JApplet implements ActionListener{
 	  public void actionPerformed(ActionEvent event){
 		  JButton vilken = (JButton)event.getSource();
 		  if (vilken == knappen1){
-			  String namnet = inmatningsfÃ¤ltet.getText();
+			  String namnet = inmatningsfältet.getText();
 			  utskriften.setText("Hej, " + namnet + "!");
 		  }else if(vilken == knappen2){
 			  utskriften.setText("Hej, knappen2!");
@@ -45,3 +45,4 @@ public class Jonny extends JApplet implements ActionListener{
 		  
 	  }
 }
+//Kanske
