@@ -1,6 +1,0 @@
-INDEX VERSION 1.126+H:\Programmering\Skolan\Ioopm\David\.metadata\.plugins\org.eclipse.jdt.core
-3834165560.index
-1436796060.index
-1244179086.index
-287469837.index
-2721293822.index
