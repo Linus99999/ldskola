@@ -1,5 +1,6 @@
+import java.lang.*;
 public class FibRecBoxed {
-    public static long fibR(long n) {
+    public static Long fibR(Long n) {
 	if (n==0) {
 	    return 0;
 	}
@@ -10,6 +11,7 @@ public class FibRecBoxed {
 	}
     }
     public static void main(String[] args) {
-	System.out.println(fibR(50));
+    	Long l = new Long(50);
+	System.out.println(fibR(l));
     }
 }
