@@ -14,7 +14,7 @@ import javax.swing.*;
 	private GridBagConstraints c = new GridBagConstraints();
 	
 	public MyFrame(){
-		//super();
+		super();
 		setVisible(true);
 		setLayout(new GridBagLayout());
 		setLocationRelativeTo(null);
