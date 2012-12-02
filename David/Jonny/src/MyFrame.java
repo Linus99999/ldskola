@@ -18,8 +18,17 @@ import java.util.Arrays;
 	int u = 0;
 	double finalresultat;
 	
-	JTextField[] textField1 = new JTextField[100];
-	JTextField[] textField2 = new JTextField[100];
+	JTextField[] textFieldNamn = new JTextField[100];
+	JTextField[] textFieldPris = new JTextField[100];
+	JTextField[] textFieldEnhet = new JTextField[100];
+	JTextField[] textFieldAntal = new JTextField[100];
+	
+	JButton[] buttonPlus = new JButton[100];
+	JButton[] buttonMinus = new JButton[100];
+	
+	JLabel utskrift = new JLabel();
+	
+	//int[] knappar = new int[100];
 	
 	
 	
@@ -29,7 +38,7 @@ import java.util.Arrays;
 	*/
 	
 	public MyFrame(){
-		super();
+		//super();
 		setVisible(true);
 		setLayout(new GridBagLayout());
 		setLocationRelativeTo(null);
@@ -37,71 +46,149 @@ import java.util.Arrays;
 		c.gridy = 0;
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		while (u<100){
+		/*while (u<100){
 			textField1[u] = null;
 			textField2[u] = null;
 			u++;
-		}
-		addNewButton();
+		}*/
+		init();
 	}
 				
-	private  void addNewButton(){
-		JButton mainButton = new JButton("Add another button");
+	private  void init(){
+		JButton mainButton = new JButton("Add another row");
 		JButton resultat = new JButton("Resultat");
-		mainButton.setActionCommand("new button");
+		mainButton.setActionCommand("new row");
 		mainButton.addActionListener(this);
+		resultat.setActionCommand("resultat");
+		resultat.addActionListener(this);
+		
 		add(mainButton, c);
 		
 		c.gridx++;
-		resultat.setActionCommand("resultat");
-		resultat.addActionListener(this);
+		
 		add(resultat);
 		c.gridy++;
 		c.gridx--;
 		pack();
 		
 	}
+	private void addButton(){
+		c.gridx = c.gridx +10;
+		buttonPlus[i] = new JButton("+");
+		buttonMinus[i] = new JButton("-");
+		
+		add(buttonPlus[i],c);
+		
+		buttonPlus[i].setActionCommand(""+i);
+		buttonPlus[i].addActionListener(this);
+		
+		c.gridx++;
+		add(buttonMinus[i],c);
+		buttonMinus[i].setActionCommand("minus"+i);
+		buttonMinus[i].addActionListener(this);
+		
+		c.gridx =c.gridx -11;
+		
+		c.gridy++;
+		i++;
+		
+		pack();
+	}
+	
 	private void addNewLabel(){
+		JLabel namn = new JLabel("Namn:");
 		JLabel pris = new JLabel("Pris:");
 		JLabel enhet = new JLabel("Enhet:");
+		JLabel antal = new JLabel("Antal");
+	
+		add(namn,c);
+		c.gridx = c.gridx +2;
 		add(pris,c);
 		c.gridx = c.gridx +2;
 		add(enhet,c);
-		c.gridx = c.gridx -2;
+		c.gridx = c.gridx +2;
+		add (antal,c);
+		c.gridx = c.gridx -6;
 		pack();
 	}
 	private void addNewTextField(){
 		
-		textField1[i] = new JTextField(6);
-		textField1[i].setText("1");
+		
+		textFieldNamn[i] = new JTextField(6);
+		textFieldNamn[i].setText("Jonny");
 		c.gridx++;
-		add(textField1[i],c);
+		add(textFieldNamn[i],c);
+	
+		textFieldPris[i] = new JTextField(6);
+		textFieldPris[i].setText("1");
+		
+		c.gridx = c.gridx +2;
+		add(textFieldPris[i],c);
 		c.gridx = c.gridx +2;
 		
-		textField2[i] = new JTextField(6);
-		textField2[i].setText("1");
-		add(textField2[i],c);
-		c.gridx = c.gridx -3;
+		textFieldEnhet[i] = new JTextField(6);
+		textFieldEnhet[i].setText("Kg");
+		add(textFieldEnhet[i],c);
+		c.gridx = c.gridx + 2;
+		textFieldAntal[i] = new JTextField(3);
+		textFieldAntal[i].setText("0");
+		add(textFieldAntal[i],c);
+		c.gridx = c.gridx -7;
 		pack();
-		c.gridy++;
+		
+	
 	}
 	
+	private void removeResultat(){
+		remove(utskrift);
+	}
 	private void addNewOutput(Double s){
-		 JLabel utskrift = new JLabel();
-		 c.gridy = c.gridy +2;
-		 add(utskrift,c);
-		 
+		
+		int gridYtemp = c.gridy;
+		int gridXtemp = c.gridx;
+		
+		
+		c.gridy = 0;
+		 c.gridx = 0;
+		 c.gridx =c.gridx +3 ;
 		 utskrift.setText(s + "");
+		 add(utskrift,c);
+		  
+		 c.gridx = gridXtemp;
+		 c.gridy = gridYtemp;
+		 x++;
 		 pack();
 		 
+		 if(x==0){ 
+		 removeResultat();
+		
+		 pack();
+		}else{
+			removeResultat();
+			
+			c.gridy = 0;
+			c.gridx = 0;
+			c.gridx =c.gridx +3 ;
+			 
+			utskrift.setText(s + "");
+			add(utskrift,c);
+			pack();
+			c.gridx = gridXtemp;
+			c.gridy = gridYtemp;
+			
+			
+			
+		}
 		 
 	}
 	
 	private double computeResult(){
 		int count = 0;
-		while (textField1[count] != null){
-		JTextField pris = textField1[count];
-		finalresultat += Double.parseDouble(pris.getText());
+		finalresultat = 0;
+		while (textFieldPris[count] != null){
+		JTextField Antal = textFieldAntal[count];
+		JTextField pris = textFieldPris[count];
+		finalresultat += (Double.parseDouble(pris.getText())*Double.parseDouble(Antal.getText()));
 		count++;
 	}
 		return finalresultat;
@@ -110,22 +197,26 @@ import java.util.Arrays;
 				
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if(e.getActionCommand().equals("new button")){
+		if(e.getActionCommand().equals("new row")){
 			
 			addNewLabel();
 			addNewTextField();
+			addButton();
 			
 		}else if(e.getActionCommand().equals("resultat")){
 		
-			if(x==0){
+			
 				double resultat = computeResult();
 				addNewOutput(resultat);
-				x++;
-			} //computeResult();
+				
 			
+			
+	}else if(e.getActionCommand().equals("")){
+		double resultat = computeResult();
+		addNewOutput(resultat);
 	}
 	}
-	
+	//("plus".substring(0,4))
 	
 	public static void main(String [] args){
 		
