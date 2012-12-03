@@ -11,5 +11,8 @@ public class Exp extends Unary {
 	public Sexpr eval(HashMap<String,Sexpr> variables){
 		return Symbolic.exp(argument.eval(variables));
 	}
+	public String getName() { 
+		return "Exp";
+	}
 
 }

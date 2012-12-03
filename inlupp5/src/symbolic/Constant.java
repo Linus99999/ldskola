@@ -3,10 +3,10 @@ package symbolic;
 import java.util.HashMap;
 
 public class Constant extends Atom {
-	double value;
-	
-	public Constant(double s) {
+	private double value;
 
+	public Constant(double s) {
+		value = s;
 	}
 	public String getName() {
 		// TODO Auto-generated method stub
@@ -18,10 +18,13 @@ public class Constant extends Atom {
 		return null;
 	}
 	public double getValue() {
-		return 5;
+		return value;
 	}
 	public boolean isConstant() {
-		return true;
+		if (value == 0) 
+			return false;
+		else
+			return true;
 	}
 
 }

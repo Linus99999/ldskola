@@ -8,7 +8,6 @@ public abstract class Sexpr {
 	public int priority() {return 5;}
 	public boolean isConstant() {return true;}
 	public abstract Sexpr eval(HashMap<String,Sexpr> variables);
-	//	public abstract Sexpr eval() {}
 	
 
 	public static void main(String[] args) {

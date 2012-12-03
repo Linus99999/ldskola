@@ -11,5 +11,8 @@ public class Log extends Unary {
 	public Sexpr eval(HashMap<String,Sexpr> variables){
 		return Symbolic.log(argument.eval(variables));
 	}
+	public String getName() { 
+		return "Log";
+	}
 
 }
