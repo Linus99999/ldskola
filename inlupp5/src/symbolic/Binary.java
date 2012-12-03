@@ -1,19 +1,13 @@
 package symbolic;
 
-import java.util.HashMap;
 
-public class Binary extends Sexpr {
-	Sexpr left;
-	Sexpr right;
+public abstract class Binary extends Sexpr {
+	private Sexpr left;
+	private Sexpr right;
 
 	public Binary() {}
-	public String getName() { return "";}
 	public String toString() {
-		return getName() + "(" + right.toString() + ")";
+		return left.toString() + getName() + right.toString();
 }
-	@Override
-	public Sexpr eval(HashMap<String, Sexpr> variables) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }
+
