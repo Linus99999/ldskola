@@ -1,0 +1,8 @@
+package symbolic;
+
+public class Addition extends Binary {
+	public Addition() {}
+	public String getName() {return ""; }
+
+
+}

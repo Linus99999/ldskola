@@ -11,7 +11,7 @@ package symbolic;
 	public String toString() {
 		return getName() + "(" + argument.toString() + ")";
 }
-	public void priority() {}
+	public int priority() {return 4;}
 
 
 }
