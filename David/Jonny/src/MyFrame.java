@@ -3,9 +3,16 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+
 import javax.swing.*;
 import java.util.Arrays;
-
+import java.util.Properties;
+import java.util.Scanner;
 
 
 	
@@ -23,8 +30,8 @@ import java.util.Arrays;
 	JTextField[] textFieldEnhet = new JTextField[100];
 	JTextField[] textFieldAntal = new JTextField[100];
 	
-	JButton[] buttonPlus = new JButton[100];
-	JButton[] buttonMinus = new JButton[100];
+	JCheckBox[] checkPlus = new JCheckBox[100];
+	JCheckBox[] checkMinus = new JCheckBox[100];
 	
 	JLabel utskrift = new JLabel();
 	
@@ -55,39 +62,49 @@ import java.util.Arrays;
 	}
 				
 	private  void init(){
-		JButton mainButton = new JButton("Add another row");
+		JButton mainButton = new JButton("Lägg Till En Ny Rad");
 		JButton resultat = new JButton("Resultat");
+		JButton spara = new JButton("Spara");
+		JButton taBort = new JButton("Ta Bort");
 		mainButton.setActionCommand("new row");
 		mainButton.addActionListener(this);
 		resultat.setActionCommand("resultat");
 		resultat.addActionListener(this);
+		spara.setActionCommand("spara");
+		spara.addActionListener(this);
+		taBort.setActionCommand("tabort");
+		taBort.addActionListener(this);
 		
 		add(mainButton, c);
 		
 		c.gridx++;
 		
-		add(resultat);
+		add(resultat,c);
+		c.gridx= c.gridx + 7;
+		add(spara,c);
+		c.gridx++;
+		add(taBort,c);
 		c.gridy++;
-		c.gridx--;
+		c.gridx = c.gridx - 9;
 		pack();
 		
 	}
 	private void addButton(){
-		c.gridx = c.gridx +10;
-		buttonPlus[i] = new JButton("+");
-		buttonMinus[i] = new JButton("-");
+		c.gridx = c.gridx +8;
+		checkPlus[i] = new JCheckBox("+");
+		checkMinus[i] = new JCheckBox("-");
 		
-		add(buttonPlus[i],c);
+		add(checkPlus[i],c);
 		
-		buttonPlus[i].setActionCommand(""+i);
-		buttonPlus[i].addActionListener(this);
+		//checkPlus[i].setActionCommand(""+i);
+		//checkPlus[i].addActionListener(this);
 		
 		c.gridx++;
-		add(buttonMinus[i],c);
-		buttonMinus[i].setActionCommand("minus"+i);
-		buttonMinus[i].addActionListener(this);
+		add(checkMinus[i],c);
+		//checkMinus[i].setActionCommand("minus"+i);
+		//checkMinus[i].addActionListener(this);
 		
-		c.gridx =c.gridx -11;
+		c.gridx =c.gridx -9;
 		
 		c.gridy++;
 		i++;
@@ -194,6 +211,23 @@ import java.util.Arrays;
 		return finalresultat;
 		
 	}
+	
+	private void addProp(String prop, int nummer) throws IOException{
+		InputStream d = new FileInputStream(prop);
+		Properties p = new Properties();
+		p.load(d);
+		
+		
+		p.setProperty("namn", textFieldNamn[nummer].getText());
+		p.setProperty("pris", textFieldPris[nummer].getText());
+		
+		p.setProperty("Enhet", textFieldEnhet[nummer].getText());
+		
+		p.setProperty("Antal", textFieldAntal[nummer].getText());
+		
+		OutputStream o = new FileOutputStream(prop);
+		p.store(o, "Properties file for saved data, Jonny");
+	}
 				
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -211,12 +245,30 @@ import java.util.Arrays;
 				
 			
 			
-	}else if(e.getActionCommand().equals("")){
-		double resultat = computeResult();
-		addNewOutput(resultat);
+	}else if(e.getActionCommand().equals("spara")){
+		int counter= 0;
+		while(counter<i){
+			JCheckBox kollen = checkPlus[counter];
+			if(kollen.isSelected()){
+				
+				try {
+					addProp("prop.txt",counter);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					System.out.println("Fail!");
+					e1.printStackTrace();
+				}
+				counter++;
+			}else{
+				
+			counter++;
+			}
+		}
+	}else if(e.getActionCommand().equals("tabort")){
+		
 	}
 	}
-	//("plus".substring(0,4))
+	
 	
 	public static void main(String [] args){
 		
