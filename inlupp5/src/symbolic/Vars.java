@@ -4,7 +4,6 @@ import java.util.Map;
 
 public class Vars extends Command {
 
-	@Override
 	public String getName() {
 		return "Vars";
 	}
