@@ -1,12 +1,14 @@
 package symbolic;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Assignment extends Binary {
-	public Assignment() {}
-	public String getName() {return ""; }
-	@Override
-	public Sexpr eval(HashMap<String, Sexpr> Variables) {
+	public Assignment(Sexpr sum, Sexpr r) {
+		super(sum, r);
+		// TODO Auto-generated constructor stub
+	}
+	public String getName() {return "Assignment"; }
+	public Sexpr eval(Map<String, Sexpr> Variables) {
 		// TODO Auto-generated method stub
 		return null;
 	}

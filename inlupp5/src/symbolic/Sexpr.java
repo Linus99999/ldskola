@@ -4,10 +4,16 @@ import java.util.*;
 public abstract class Sexpr {
 	public Sexpr() {}
 	public abstract String getName();
-	public double getValue() {return 0.5;}
-	public int priority() {return 5;}
-	public boolean isConstant() {return true;}
-	public abstract Sexpr eval(HashMap<String,Sexpr> variables);
+	public double getValue() {
+		return 0;
+		}
+	public int priority() {
+		return 0;
+		}
+	public boolean isConstant() {
+		return false;
+		}
+	public abstract Sexpr eval(Map<String, Sexpr> variables);
 	
 
 	public static void main(String[] args) {

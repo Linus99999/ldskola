@@ -1,16 +1,18 @@
 package symbolic;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Division extends Binary {
-	public Division() {}
+	public Division(Sexpr sum, Sexpr sexpr) {
+		super(sum,sexpr);
+	}
 	public String getName() { 
 		return "/";
 	}
-	@Override
-	public Sexpr eval(HashMap<String, Sexpr> Variables) {
-		// TODO Auto-generated method stub
-		return null;
+	public Sexpr eval(Map<String, Sexpr> Variables) {
+		return Symbolic.division(left.eval(Variables),right.eval(Variables));
 	}
-
+	public int priority() {
+		return 2;
+	}
 }

@@ -1,11 +1,13 @@
 package symbolic;
 
-
 public abstract class Binary extends Sexpr {
-	private Sexpr left;
-	private Sexpr right;
+	protected Sexpr left;
+	protected Sexpr right;
 
-	public Binary() {}
+	public Binary(Sexpr sum, Sexpr r) {
+		left = sum;
+		right = r;
+	}
 	public String toString() {
 		return left.toString() + getName() + right.toString();
 }

@@ -26,4 +26,34 @@ public class Symbolic {
 		else
 			return new Log(arg);
 	}
+	public static Sexpr negation(Sexpr arg) {
+		if (arg.isConstant())
+			return new Constant(-arg.getValue());
+		else
+			return new Negation(arg);
+	}
+	public static Sexpr addition(Sexpr arg1, Sexpr arg2) {
+		if (arg1.isConstant() && arg2.isConstant())
+			return new Constant(arg1.getValue() + arg2.getValue());
+		else
+			return new Addition(arg1,arg2);
+	}
+	public static Sexpr division(Sexpr arg1, Sexpr arg2) {
+		if (arg1.isConstant() && arg2.isConstant())
+			return new Constant(arg1.getValue() / arg2.getValue());
+		else
+			return new Division(arg1,arg2);
+	}
+	public static Sexpr subtraction(Sexpr arg1, Sexpr arg2) {
+		if (arg1.isConstant() && arg2.isConstant())
+			return new Constant(arg1.getValue() - arg2.getValue());
+		else
+			return new Subtraction(arg1,arg2);
+	}
+	public static Sexpr multiplication(Sexpr arg1, Sexpr arg2) {
+		if (arg1.isConstant() && arg2.isConstant())
+			return new Constant(arg1.getValue() * arg2.getValue());
+		else
+			return new Multiplication(arg1,arg2);
+	}
 }

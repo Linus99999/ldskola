@@ -1,6 +1,6 @@
 package symbolic;
 
-import java.util.HashMap;
+import java.util.Map;
 
 public class Exp extends Unary {
 
@@ -8,7 +8,7 @@ public class Exp extends Unary {
 		super(a);
 		// TODO Auto-generated constructor stub
 	}
-	public Sexpr eval(HashMap<String,Sexpr> variables){
+	public Sexpr eval(Map<String,Sexpr> variables){
 		return Symbolic.exp(argument.eval(variables));
 	}
 	public String getName() { 
