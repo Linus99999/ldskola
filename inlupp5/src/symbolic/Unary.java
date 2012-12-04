@@ -5,13 +5,10 @@ package symbolic;
 	public Unary(Sexpr a){
 	argument = a;
 	}
-	public String getName() {return "";
-	}
-	
 	public String toString() {
 		return getName() + "(" + argument.toString() + ")";
 }
-	public void priority() {}
+	public int priority() {return 4;}
 
 
 }
