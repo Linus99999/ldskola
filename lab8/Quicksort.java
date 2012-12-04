@@ -82,5 +82,41 @@ public class Quicksort {
     public static void pQsort(final int[] arr) {
 	// TODO: implement a parallel quicksort
     }
+    public static boolean isCorrect (int[] array){
+    	int count = 0;
+    	while(count<array.length-1){
+    		if(array[count]<=array[count+1]){
+    			count++;
+    		}else{
+    			return false;
+    		}
+    		
+    	}
+    	return true;
+    }
+    public static int[] createArray (int n){
+    	int[] intarray = new int[n];
+    	int count = 0;
+    	while(count<n){
+    		intarray[count]= (int) (Math.random()*100);
+    	count++;
+    	}
+    	return intarray;
+    }
+    
+public static void main(String[] args){
+	
+	int[] intarray = createArray(500000);
+	long time1 = System.currentTimeMillis();
+	
+	sQsort(intarray);
+	
+	long time2 = System.currentTimeMillis();
+	
+	long total = time2-time1;
+	System.out.println(total+" Millisekunder");
+	
 
+	System.out.println(isCorrect(intarray));
+	}
 }
