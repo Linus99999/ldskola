@@ -85,7 +85,7 @@ public class Parser {
 				temp = unary();
 			}
 			else {
-				temp = identifier(new Variable(st.sval));
+				temp = new Variable(st.sval);
 			}
 		}
 		else { System.out.print("fail");

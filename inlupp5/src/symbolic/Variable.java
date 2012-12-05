@@ -12,6 +12,10 @@ public class Variable extends Atom {
 	}
 
 	public Sexpr eval(Map<String, Sexpr> variables) {
+		if (variables.containsKey(Ident)) {
+			return variables.get(Ident);
+		}
+		variables.put(Ident, new Variable(Ident));
 		return this;
 	}
 
