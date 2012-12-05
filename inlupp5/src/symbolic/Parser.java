@@ -23,7 +23,7 @@ public class Parser {
 	public Sexpr term() throws IOException {
 		System.err.print("4");
 		Sexpr sum = factor();
-		while (st.ttype=='*' || st.ttype=='/') {
+		while (st.ttype=='%' || st.ttype=='*') {
 			int operation = st.ttype;
 			st.nextToken();
 			if (operation=='*') {
@@ -40,7 +40,7 @@ public class Parser {
 	public Sexpr expression() throws IOException {
 		System.err.print("3");
 		Sexpr sum = term();
-		while (st.ttype=='+' || st.ttype=='-') {
+		while (st.ttype=='+' || st.ttype=='~') {
 			int operation = st.ttype;
 			st.nextToken();
 			if (operation=='+') {
@@ -63,8 +63,9 @@ public class Parser {
 	}
 	public Sexpr primary() throws IOException {
 		System.err.print("5");
-		Sexpr temp = null;
+		Sexpr temp;
 		if (st.ttype == '(') {
+			st.nextToken();
 			temp = assignment();
 		}
 		else if (st.ttype == StreamTokenizer.TT_NUMBER) {
@@ -80,28 +81,28 @@ public class Parser {
 			}
 		}
 		else { System.out.print("fail");
-
+		temp = null;
 		}
 		return temp;
 	}	
 	public Sexpr unary() throws IOException {
-		Sexpr sum = null;
+		Sexpr sum;
 		System.err.print("7");
-		while (st.sval.equals("exp") || st.sval.equals("sin") || st.sval.equals("cos") || st.sval.equals("log")) {
-			String s = st.sval;
-			st.nextToken();
-			if (s.equals("exp")) {
-				sum = new Exp(primary());
-			} else if (s.equals("log")) {
-				sum = new Log(primary());
-			} else if (s.equals("sin")) {
-				sum = new Sin(primary());
-			} else if (s.equals("cos")) {
-				sum = new Cos(primary());
-			} else {
-				sum = new Negation(primary());
-			}
+		//	while (st.sval.equals("exp") || st.sval.equals("sin") || st.sval.equals("cos") || st.sval.equals("log")) {
+		String s = st.sval;
+		st.nextToken();
+		if (s.equals("exp")) {
+			sum = new Exp(primary());
+		} else if (s.equals("log")) {
+			sum = new Log(primary());
+		} else if (s.equals("sin")) {
+			sum = new Sin(primary());
+		} else if (s.equals("cos")) {
+			sum = new Cos(primary());
+		} else {
+			sum = new Negation(primary());
 		}
+		//	}
 		return sum;
 	}
 	public Sexpr assignment() throws IOException {
