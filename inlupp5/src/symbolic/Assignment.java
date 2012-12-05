@@ -7,9 +7,13 @@ public class Assignment extends Binary {
 		super(sum, r);
 		// TODO Auto-generated constructor stub
 	}
-	public String getName() {return "Assignment"; }
+	public String getName() {
+		return "=";
+		}
 	public Sexpr eval(Map<String, Sexpr> Variables) {
-		// TODO Auto-generated method stub
-		return null;
+		Variables.put(right.getName(),left);
+		
+		return left.eval(Variables);
+		
 	}
 }

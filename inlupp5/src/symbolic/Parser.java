@@ -7,18 +7,20 @@ public class Parser {
 	public Sexpr statement() throws IOException {
 		st.nextToken();
 		if(st.ttype == StreamTokenizer.TT_WORD ) {
-			if (st.sval.equals("exp") || st.sval.equals("sin") || st.sval.equals("cos") || st.sval.equals("log")) {
+			if (st.sval.equals("quit") || st.sval.equals("vars")) {
 				System.err.print("1");
-				return assignment();
+				return command();
 			} 
 			else {
-				System.err.print("command");
-				return command();
+				System.err.print("1");
+				return assignment();
 			}
-		} else {
+		}
+		else {
 			System.err.print("1");
 			return assignment();
 		}
+
 	}
 	public Sexpr term() throws IOException {
 		System.err.print("4");
@@ -54,8 +56,10 @@ public class Parser {
 		}
 		return sum;
 	}
-	public Sexpr identifier() {
-		return null;
+	public Sexpr identifier(Sexpr r) throws IOException {
+		String s = st.sval;
+		st.nextToken();
+		return new Assignment(r, new Variable(s));
 	}
 	public Sexpr factor() throws IOException {
 		return primary();
@@ -67,6 +71,10 @@ public class Parser {
 		if (st.ttype == '(') {
 			st.nextToken();
 			temp = assignment();
+			if (st.ttype == ')') { 
+				st.nextToken();
+			}
+			
 		}
 		else if (st.ttype == StreamTokenizer.TT_NUMBER) {
 			temp = number();
@@ -77,7 +85,7 @@ public class Parser {
 				temp = unary();
 			}
 			else {
-				temp = identifier();
+				temp = identifier(new Variable(st.sval));
 			}
 		}
 		else { System.out.print("fail");
@@ -86,7 +94,7 @@ public class Parser {
 		return temp;
 	}	
 	public Sexpr unary() throws IOException {
-		Sexpr sum;
+		Sexpr sum = null;
 		System.err.print("7");
 		//	while (st.sval.equals("exp") || st.sval.equals("sin") || st.sval.equals("cos") || st.sval.equals("log")) {
 		String s = st.sval;
@@ -102,15 +110,16 @@ public class Parser {
 		} else {
 			sum = new Negation(primary());
 		}
-		//	}
+		//}
 		return sum;
 	}
 	public Sexpr assignment() throws IOException {
 		System.err.print("2");
 		Sexpr sum = expression();
-		if(st.ttype == '=')
+		while (st.ttype == '=')
 		{
-			identifier();
+			st.nextToken();
+			sum = identifier(sum);
 		}
 		return sum;
 	}
@@ -118,6 +127,7 @@ public class Parser {
 		System.err.print("6");
 		Sexpr temp = new Constant(st.nval);
 		st.nextToken();
+		System.err.print("asd");
 		return temp;
 
 	}
@@ -126,7 +136,7 @@ public class Parser {
 		if (s.equals("quit")) {
 			System.exit(0);
 		} else if (s.equals("vars")) {
-			System.exit(0);
+			return new Vars();
 		}
 		return null;
 	}
@@ -139,9 +149,7 @@ public class Parser {
 			System.out.print("? ");
 			Sexpr e = p.statement();
 			System.out.println("Inläst uttryck: " + e); // För kontroll
-			System.out.println(e);
 			System.out.println(e.eval(variables));
-			System.out.println(e);
 		}
 	}
 }

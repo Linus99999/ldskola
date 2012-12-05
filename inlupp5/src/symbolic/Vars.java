@@ -8,10 +8,12 @@ public class Vars extends Command {
 		return "Vars";
 	}
 
-	@Override
 	public Sexpr eval(Map<String, Sexpr> variables) {
-		// TODO Auto-generated method stub
-		return null;
+		System.out.print(variables.values());
+		return null; 
+	}
+	public String toString() {
+		return getName();
 	}
 
 }

@@ -12,8 +12,7 @@ public class Variable extends Atom {
 	}
 
 	public Sexpr eval(Map<String, Sexpr> variables) {
-		// TODO Auto-generated method stub
-		return null;
+		return this;
 	}
 
 }
