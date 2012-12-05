@@ -15,7 +15,7 @@ public class Assignment extends Binary {
 		else
 			Variables.put(right.getName(),left.eval(Variables));
 		
-		return left.eval(Variables);
+		return Variables.get(right.getName());
 		
 	}
 }

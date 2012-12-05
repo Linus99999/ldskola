@@ -6,23 +6,22 @@ public class Parser {
 	Reader r = new BufferedReader(new InputStreamReader(System.in));
 	StreamTokenizer st = new StreamTokenizer(r);
 	public Sexpr statement() throws IOException {
-		st.eolIsSignificant(true);
+		st.eolIsSignificant(false);
 		st.nextToken();
 		if(st.ttype == StreamTokenizer.TT_WORD ) {
 			if (st.sval.equals("quit") || st.sval.equals("vars")) {
 				System.err.print("1");
-				ans = command();
+				return command();
 			} 
 			else {
 				System.err.print("1");
-				ans = assignment();
+				return assignment();
 			}
 		}
 		else {
 			System.err.print("1");
-			ans = assignment();
+			return assignment();
 		}
-return ans;
 	}
 	public Sexpr term() throws IOException {
 		System.err.print("4");
@@ -112,8 +111,8 @@ return ans;
 			sum = new Cos(primary());
 		} else {
 			sum = new Negation(primary());
+	//	}
 		}
-		//}
 		return sum;
 	}
 	public Sexpr assignment() throws IOException {
