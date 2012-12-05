@@ -6,9 +6,14 @@ Reader r = new BufferedReader(new InputStreamReader(System.in));
 	StreamTokenizer st = new StreamTokenizer(r);
 	public Sexpr statement() throws IOException {
 		st.nextToken();
-		if(st.ttype == StreamTokenizer.TT_WORD) {
+		if(st.ttype == StreamTokenizer.TT_WORD ) {
+			if (st.sval == "exp" || st.sval == "sin" || st.sval == "cos" || st.sval == "log" || st.ttype == '-') {
+				return assignment();
+			} 
+			else {
 			System.err.print("command");
 			return command();
+			}
 		} else {
 			System.err.print("1");
 			return assignment();
@@ -52,13 +57,12 @@ Reader r = new BufferedReader(new InputStreamReader(System.in));
 		System.err.print("5");
 		Sexpr temp;
 		if (st.ttype == '(') {
-			st.nextToken();
 			temp = assignment();
 		}
 		else if (st.ttype == StreamTokenizer.TT_NUMBER) {
 			temp = number();
 		}
-		else if (st.sval == "exp" || st.sval == "sin" ||st.sval == "cos" ||st.sval == "log" || st.ttype == '-') {
+		else if (st.sval == "exp" || st.sval == "sin" || st.sval == "cos" || st.sval == "log" || st.ttype == '-') {
 			temp = unary();
 		}
 		else {
@@ -116,8 +120,9 @@ Reader r = new BufferedReader(new InputStreamReader(System.in));
 			System.out.print("? ");
 			Sexpr e = p.statement();
 			System.out.println("Inläst uttryck: " + e); // För kontroll
-			System.out.println(e.getValue());
+			System.out.println(e);
 			System.out.println(e.eval(variables));
+			System.out.println(e);
 		}
 	}
 }

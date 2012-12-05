@@ -9,7 +9,6 @@ public class Multiplication extends Binary {
 	public String getName() { 
 		return "*";
 	}
-	@Override
 	public Sexpr eval(Map<String, Sexpr> Variables) {
 		return Symbolic.multiplication(left.eval(Variables),right.eval(Variables));
 		}
