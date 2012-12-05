@@ -19,7 +19,7 @@ public class Vars extends Command {
 	       
 	       System.out.println(key + " " + value);  
 	    }  
-		return null; 
+		return this; 
 	}
 	public String toString() {
 		return getName();

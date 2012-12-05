@@ -2,25 +2,27 @@ package symbolic;
 import java.io.*;
 import java.util.*;
 public class Parser {
+	Sexpr ans;
 	Reader r = new BufferedReader(new InputStreamReader(System.in));
 	StreamTokenizer st = new StreamTokenizer(r);
 	public Sexpr statement() throws IOException {
+		st.eolIsSignificant(true);
 		st.nextToken();
 		if(st.ttype == StreamTokenizer.TT_WORD ) {
 			if (st.sval.equals("quit") || st.sval.equals("vars")) {
 				System.err.print("1");
-				return command();
+				ans = command();
 			} 
 			else {
 				System.err.print("1");
-				return assignment();
+				ans = assignment();
 			}
 		}
 		else {
 			System.err.print("1");
-			return assignment();
+			ans = assignment();
 		}
-
+return ans;
 	}
 	public Sexpr term() throws IOException {
 		System.err.print("4");
@@ -84,6 +86,7 @@ public class Parser {
 			if (s.equals("exp") || s.equals("sin") || s.equals("cos") || s.equals("log")) {
 				temp = unary();
 			}
+			
 			else {
 				temp = new Variable(st.sval);
 			}
@@ -150,6 +153,7 @@ public class Parser {
 			Sexpr e = p.statement();
 			System.out.println("Inläst uttryck: " + e); // För kontroll
 			System.out.println(e.eval(variables));
+			variables.put("ans",e.eval(variables));
 		}
 	}
 }
