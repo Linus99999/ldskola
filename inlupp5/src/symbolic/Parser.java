@@ -2,17 +2,18 @@ package symbolic;
 import java.io.*;
 import java.util.*;
 public class Parser {
-Reader r = new BufferedReader(new InputStreamReader(System.in));
+	Reader r = new BufferedReader(new InputStreamReader(System.in));
 	StreamTokenizer st = new StreamTokenizer(r);
 	public Sexpr statement() throws IOException {
 		st.nextToken();
 		if(st.ttype == StreamTokenizer.TT_WORD ) {
-			if (st.sval == "exp" || st.sval == "sin" || st.sval == "cos" || st.sval == "log" || st.ttype == '-') {
+			if (st.sval.equals("exp") || st.sval.equals("sin") || st.sval.equals("cos") || st.sval.equals("log")) {
+				System.err.print("1");
 				return assignment();
 			} 
 			else {
-			System.err.print("command");
-			return command();
+				System.err.print("command");
+				return command();
 			}
 		} else {
 			System.err.print("1");
@@ -25,10 +26,13 @@ Reader r = new BufferedReader(new InputStreamReader(System.in));
 		while (st.ttype=='*' || st.ttype=='/') {
 			int operation = st.ttype;
 			st.nextToken();
-			if (operation=='*')
+			if (operation=='*') {
+				System.err.print("mul");
 				sum = new Multiplication(sum, factor());
-			else
+			}	else {
+				System.err.print("div");
 				sum = new Division(sum, factor());
+			}
 		}
 		return sum;
 	}
@@ -39,10 +43,14 @@ Reader r = new BufferedReader(new InputStreamReader(System.in));
 		while (st.ttype=='+' || st.ttype=='-') {
 			int operation = st.ttype;
 			st.nextToken();
-			if (operation=='+')
+			if (operation=='+') {
+				System.err.print("add");
 				sum = new Addition(sum, term());
-			else
+			}
+			else {
+				System.err.print("sub");
 				sum = new Subtraction(sum, term());
+			}
 		}
 		return sum;
 	}
@@ -55,34 +63,44 @@ Reader r = new BufferedReader(new InputStreamReader(System.in));
 	}
 	public Sexpr primary() throws IOException {
 		System.err.print("5");
-		Sexpr temp;
+		Sexpr temp = null;
 		if (st.ttype == '(') {
 			temp = assignment();
 		}
 		else if (st.ttype == StreamTokenizer.TT_NUMBER) {
 			temp = number();
 		}
-		else if (st.sval == "exp" || st.sval == "sin" || st.sval == "cos" || st.sval == "log" || st.ttype == '-') {
-			temp = unary();
+		else if (st.ttype == StreamTokenizer.TT_WORD) {
+			String s = st.sval;
+			if (s.equals("exp") || s.equals("sin") || s.equals("cos") || s.equals("log")) {
+				temp = unary();
+			}
+			else {
+				temp = identifier();
+			}
 		}
-		else {
-			temp = identifier();
+		else { System.out.print("fail");
+
 		}
 		return temp;
-
-	}
+	}	
 	public Sexpr unary() throws IOException {
 		Sexpr sum = null;
-		if (st.sval == "exp") {
-			sum = new Exp(primary());
-		} else if (st.sval == "log") {
-			sum = new Log(primary());
-		} else if (st.sval == "sin") {
-			sum = new Sin(primary());
-		} else if (st.sval == "cos") {
-			sum = new Cos(primary());
-		} else {
-			sum = new Negation(primary());
+		System.err.print("7");
+		while (st.sval.equals("exp") || st.sval.equals("sin") || st.sval.equals("cos") || st.sval.equals("log")) {
+			String s = st.sval;
+			st.nextToken();
+			if (s.equals("exp")) {
+				sum = new Exp(primary());
+			} else if (s.equals("log")) {
+				sum = new Log(primary());
+			} else if (s.equals("sin")) {
+				sum = new Sin(primary());
+			} else if (s.equals("cos")) {
+				sum = new Cos(primary());
+			} else {
+				sum = new Negation(primary());
+			}
 		}
 		return sum;
 	}
@@ -103,12 +121,12 @@ Reader r = new BufferedReader(new InputStreamReader(System.in));
 
 	}
 	public Sexpr command() {
-		if (st.sval == "quit") {
+		String s = st.sval;
+		if (s.equals("quit")) {
 			System.exit(0);
-		} else if (st.sval == "vars") {
+		} else if (s.equals("vars")) {
 			System.exit(0);
 		}
-		System.exit(0);
 		return null;
 	}
 
