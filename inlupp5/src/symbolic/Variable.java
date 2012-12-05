@@ -15,7 +15,6 @@ public class Variable extends Atom {
 		if (variables.containsKey(Ident)) {
 			return variables.get(Ident);
 		}
-		variables.put(Ident, new Variable(Ident));
 		return this;
 	}
 
