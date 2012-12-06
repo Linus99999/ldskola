@@ -12,16 +12,17 @@ public class Vars extends Command {
 	public Sexpr eval(Map<String, Sexpr> variables) {
 	//	System.out.print(variables.values());
 	    Iterator<String> iterator = variables.keySet().iterator();  
-	       
+	       String s = "";
 	    while (iterator.hasNext()) {  
 	       String key = iterator.next().toString();  
 	       String value = variables.get(key).toString();  
-	       
-	       System.out.println(key + " " + value);  
+	       s = s+key + " " + value +"\n"; 
+	     //  System.out.println(key + " " + value);  
 	    }  
-		return this; 
+		return new Variable(s); 
 	}
 	public String toString() {
+	      
 		return getName();
 	}
 

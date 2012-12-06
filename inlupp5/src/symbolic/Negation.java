@@ -6,13 +6,12 @@ public class Negation extends Unary {
 
 	public Negation(Sexpr a) {
 		super(a);
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public String getName() {
 		
-		return "Negation";
+		return "~";
 	}
 
 		public Sexpr eval(Map<String,Sexpr> variables){

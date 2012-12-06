@@ -28,7 +28,7 @@ public class Symbolic {
 	}
 	public static Sexpr negation(Sexpr arg) {
 		if (arg.isConstant())
-			return new Constant(-arg.getValue());
+			return new Constant(arg.getValue()*-1);
 		else
 			return new Negation(arg);
 	}
