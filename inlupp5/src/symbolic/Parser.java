@@ -12,7 +12,10 @@ public class Parser {
 		String msg;
 
 		InvalidInputException(int s) {
-			msg = (char) s + "";
+			if (s == StreamTokenizer.TT_EOL)
+				msg = "End";
+			else
+				msg = (char) s + "";
 		}
 
 		public String getError() {
@@ -21,16 +24,23 @@ public class Parser {
 	}
 
 	Sexpr ans;
-	Reader r = new BufferedReader(new InputStreamReader(System.in));
-	StreamTokenizer st = new StreamTokenizer(r);
+	StreamTokenizer st;
+
+	public Parser(InputStreamReader readr) {
+		Reader r = new BufferedReader(readr);
+		st = new StreamTokenizer(r);
+		st.ordinaryChar('/');
+		st.ordinaryChar('-');
+	}
 
 	public Sexpr statement() throws IOException, InvalidInputException {
 		Sexpr ret;
 		int failMsg;
+
 		st.nextToken();
 		if (st.ttype == StreamTokenizer.TT_WORD) {
-			st.eolIsSignificant(false);
 			if (st.sval.equals("quit") || st.sval.equals("vars")) {
+
 				ret = command();
 			} else {
 				ret = assignment();
@@ -51,7 +61,7 @@ public class Parser {
 
 	public Sexpr term() throws IOException, InvalidInputException {
 		Sexpr sum = factor();
-		while (st.ttype == '%' || st.ttype == '*') {
+		while (st.ttype == '/' || st.ttype == '*') {
 			int operation = st.ttype;
 			st.nextToken();
 			if (operation == '*') {
@@ -65,7 +75,7 @@ public class Parser {
 
 	public Sexpr expression() throws IOException, InvalidInputException {
 		Sexpr sum = term();
-		while (st.ttype == '+' || st.ttype == '~') {
+		while (st.ttype == '+' || st.ttype == '-') {
 			int operation = st.ttype;
 			st.nextToken();
 			if (operation == '+') {
@@ -113,7 +123,7 @@ public class Parser {
 
 				temp = new Variable(s);
 			}
-		} else if (st.ttype == '~')
+		} else if (st.ttype == '-')
 			temp = unary();
 		else {
 			int s = st.ttype;
@@ -162,18 +172,20 @@ public class Parser {
 
 	}
 
-	public Sexpr command() {
+	public Sexpr command() throws IOException {
 		String s = st.sval;
 		if (s.equals("quit")) {
 			System.exit(0);
-		} else if (s.equals("vars")) {
+			return null;
+		} else {
+			st.eolIsSignificant(true);
+			st.nextToken();
 			return new Vars();
 		}
-		return null;
 	}
 
 	public static void main(String[] args) throws IOException {
-		Parser p = new Parser();
+		Parser p = new Parser(new InputStreamReader(System.in));
 		Map<String, Sexpr> variables = new HashMap<String, Sexpr>();
 		Sexpr e = null;
 		while (true) {
