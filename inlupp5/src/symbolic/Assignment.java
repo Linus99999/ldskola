@@ -12,10 +12,10 @@ public class Assignment extends Binary {
 	}
 
 	public Sexpr eval(Map<String, Sexpr> Variables) {
-		if (Variables.containsKey(left.getName()))
-			Variables.put(right.getName(),
-					Variables.get(left.getName()).eval(Variables));
-		else
+		//if (Variables.containsKey(left.getName()))
+		//	Variables.put(right.getName(),
+		//			Variables.get(left.getName()).eval(Variables));
+	//	else
 			Variables.put(right.getName(), left.eval(Variables));
 
 		return Variables.get(right.getName());
