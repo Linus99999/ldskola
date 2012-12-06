@@ -6,12 +6,13 @@ public class Log extends Unary {
 
 	public Log(Sexpr a) {
 		super(a);
-		// TODO Auto-generated constructor stub
 	}
-	public Sexpr eval(Map<String,Sexpr> variables){
+
+	public Sexpr eval(Map<String, Sexpr> variables) {
 		return Symbolic.log(argument.eval(variables));
 	}
-	public String getName() { 
+
+	public String getName() {
 		return "Log";
 	}
 

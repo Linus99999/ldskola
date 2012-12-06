@@ -10,12 +10,12 @@ public class Negation extends Unary {
 
 	@Override
 	public String getName() {
-		
+
 		return "~";
 	}
 
-		public Sexpr eval(Map<String,Sexpr> variables){
-			return Symbolic.negation(argument.eval(variables));
+	public Sexpr eval(Map<String, Sexpr> variables) {
+		return Symbolic.negation(argument.eval(variables));
 	}
 
 }

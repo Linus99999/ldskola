@@ -4,11 +4,27 @@ import java.io.*;
 import java.util.*;
 
 public class Parser {
+	class InvalidInputException extends Exception {
+		/**
+		 * 
+		 */
+		private static final long serialVersionUID = 1L;
+		String msg;
+
+		InvalidInputException(int s) {
+			msg = (char) s + "";
+		}
+
+		public String getError() {
+			return msg;
+		}
+	}
+
 	Sexpr ans;
 	Reader r = new BufferedReader(new InputStreamReader(System.in));
 	StreamTokenizer st = new StreamTokenizer(r);
 
-	public Sexpr statement() throws IOException {
+	public Sexpr statement() throws IOException, InvalidInputException {
 		Sexpr ret;
 		st.nextToken();
 		if (st.ttype == StreamTokenizer.TT_WORD) {
@@ -26,7 +42,7 @@ public class Parser {
 		return ret;
 	}
 
-	public Sexpr term() throws IOException {
+	public Sexpr term() throws IOException, InvalidInputException {
 		Sexpr sum = factor();
 		while (st.ttype == '%' || st.ttype == '*') {
 			int operation = st.ttype;
@@ -40,7 +56,7 @@ public class Parser {
 		return sum;
 	}
 
-	public Sexpr expression() throws IOException {
+	public Sexpr expression() throws IOException, InvalidInputException {
 		Sexpr sum = term();
 		while (st.ttype == '+' || st.ttype == '~') {
 			int operation = st.ttype;
@@ -60,12 +76,12 @@ public class Parser {
 		return new Assignment(r, new Variable(s));
 	}
 
-	public Sexpr factor() throws IOException {
+	public Sexpr factor() throws IOException, InvalidInputException {
 		return primary();
 
 	}
 
-	public Sexpr primary() throws IOException {
+	public Sexpr primary() throws IOException, InvalidInputException {
 		Sexpr temp;
 		if (st.ttype == '(') {
 			st.nextToken();
@@ -93,12 +109,15 @@ public class Parser {
 		} else if (st.ttype == '~')
 			temp = unary();
 		else {
-			throw new IllegalArgumentException();
+			int s = st.ttype;
+			while (st.ttype != StreamTokenizer.TT_EOL)
+				st.nextToken();
+			throw new InvalidInputException(s);
 		}
 		return temp;
 	}
 
-	public Sexpr unary() throws IOException {
+	public Sexpr unary() throws IOException, InvalidInputException {
 		Sexpr sum;
 		if (st.ttype == StreamTokenizer.TT_WORD) {
 			String s = st.sval;
@@ -120,7 +139,7 @@ public class Parser {
 		return sum;
 	}
 
-	public Sexpr assignment() throws IOException {
+	public Sexpr assignment() throws IOException, InvalidInputException {
 		Sexpr sum = expression();
 		while (st.ttype == '=') {
 			st.nextToken();
@@ -154,12 +173,12 @@ public class Parser {
 			try {
 				System.out.print("? ");
 				e = p.statement();
-				System.out.println("Inläst uttryck: " + e); // För kontroll
 				System.out.println(e.eval(variables));
-			} catch (IllegalArgumentException err) {
-				System.err.print("incorrect input");
+				variables.put("ans", e.eval(variables));
+			} catch (InvalidInputException err) {
+				System.err.println("*** Syntax Error: Unexpected: "
+						+ err.getError());
 			}
-			variables.put("ans", e.eval(variables));
 
 		}
 

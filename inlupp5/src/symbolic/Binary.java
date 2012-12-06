@@ -8,8 +8,8 @@ public abstract class Binary extends Sexpr {
 		left = sum;
 		right = r;
 	}
+
 	public String toString() {
 		return left.toString() + getName() + right.toString();
+	}
 }
-}
-

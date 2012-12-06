@@ -6,12 +6,13 @@ public class Sin extends Unary {
 
 	public Sin(Sexpr a) {
 		super(a);
-		// TODO Auto-generated constructor stub
 	}
-	public Sexpr eval(Map<String,Sexpr> variables){
+
+	public Sexpr eval(Map<String, Sexpr> variables) {
 		return Symbolic.sin(argument.eval(variables));
 	}
-	public String getName() { 
+
+	public String getName() {
 		return "Sin";
 	}
 
