@@ -6,22 +6,26 @@ public class Parser {
 	Reader r = new BufferedReader(new InputStreamReader(System.in));
 	StreamTokenizer st = new StreamTokenizer(r);
 	public Sexpr statement() throws IOException {
-		st.eolIsSignificant(false);
+		Sexpr hej;
 		st.nextToken();
 		if(st.ttype == StreamTokenizer.TT_WORD ) {
+			st.eolIsSignificant(false);
 			if (st.sval.equals("quit") || st.sval.equals("vars")) {
 				System.err.print("1");
-				return command();
+				hej = command();
 			} 
 			else {
 				System.err.print("1");
-				return assignment();
+				hej = assignment();
 			}
 		}
 		else {
+			st.eolIsSignificant(true);
 			System.err.print("1");
-			return assignment();
+			hej = assignment();
 		}
+		
+		return hej;
 	}
 	public Sexpr term() throws IOException {
 		System.err.print("4");
@@ -58,8 +62,8 @@ public class Parser {
 		return sum;
 	}
 	public Sexpr identifier(Sexpr r) throws IOException {
-		String s = st.sval;
-		st.nextToken();
+			String s = st.sval;
+			st.nextToken();
 		return new Assignment(r, new Variable(s));
 	}
 	public Sexpr factor() throws IOException {
@@ -75,7 +79,7 @@ public class Parser {
 			if (st.ttype == ')') { 
 				st.nextToken();
 			}
-			
+
 		}
 		else if (st.ttype == StreamTokenizer.TT_NUMBER) {
 			temp = number();
@@ -83,11 +87,16 @@ public class Parser {
 		else if (st.ttype == StreamTokenizer.TT_WORD) {
 			String s = st.sval;
 			if (s.equals("exp") || s.equals("sin") || s.equals("cos") || s.equals("log")) {
+				st.eolIsSignificant(true);
 				temp = unary();
 			}
-			
+
 			else {
-				temp = new Variable(st.sval);
+				System.err.print("var");
+				st.eolIsSignificant(true);
+				st.nextToken();
+				
+				temp = new Variable(s);
 			}
 		}
 		else { System.out.print("fail");
@@ -111,14 +120,14 @@ public class Parser {
 			sum = new Cos(primary());
 		} else {
 			sum = new Negation(primary());
-	//	}
+			//	}
 		}
 		return sum;
 	}
 	public Sexpr assignment() throws IOException {
 		System.err.print("2");
 		Sexpr sum = expression();
-		while (st.ttype == '=')
+		while (st.ttype=='=')
 		{
 			st.nextToken();
 			sum = identifier(sum);
