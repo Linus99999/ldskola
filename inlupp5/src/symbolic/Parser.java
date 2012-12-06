@@ -26,6 +26,7 @@ public class Parser {
 
 	public Sexpr statement() throws IOException, InvalidInputException {
 		Sexpr ret;
+		int failMsg;
 		st.nextToken();
 		if (st.ttype == StreamTokenizer.TT_WORD) {
 			st.eolIsSignificant(false);
@@ -38,7 +39,13 @@ public class Parser {
 			st.eolIsSignificant(true);
 			ret = assignment();
 		}
+		if (st.ttype != StreamTokenizer.TT_EOL) {
+			failMsg = st.ttype;
+			while (st.ttype != StreamTokenizer.TT_EOL)
+				st.nextToken();
 
+			throw new InvalidInputException(failMsg);
+		}
 		return ret;
 	}
 
