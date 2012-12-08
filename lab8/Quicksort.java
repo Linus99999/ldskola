@@ -1,3 +1,4 @@
+
 public class Quicksort {
 
 	private static void insertionSort(final int[] arr, final int start,
@@ -22,7 +23,7 @@ public class Quicksort {
 	//
 	// NOTE: numbers equal to pivot may be included in either left or right.
 	//
-	private static void sQsort(final int[] arr, final int start, final int end) {
+	public static void sQsort(final int[] arr, final int start, final int end) {
 		if (end-start > 358) { 
 		int left = start;
 		int right = end + 1;
@@ -151,4 +152,5 @@ public class Quicksort {
 		}
 		System.out.println(med / 50);
 	}
-}
+
+	}
