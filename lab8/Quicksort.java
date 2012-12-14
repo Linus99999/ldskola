@@ -26,7 +26,7 @@ public class Quicksort {
 	public static void sQsort(final int[] arr, final int start, final int end) {
 		if (end-start > 358) { 
 		int left = start;
-		int right = end + 1;
+		int right = end+1;
 		// We simply pick the first element as pivot..
 		final int pivot = arr[start];
 		int tmp;
@@ -77,12 +77,12 @@ public class Quicksort {
 		}
 		}
 		else {
-			insertionSort(arr, start, end);
+			insertionSort(arr, start, end+1);
 		}
 	}
 
 	public static void sQsort(final int[] arr) {
-		sQsort(arr, 0, arr.length - 1);
+		sQsort(arr, 0, arr.length-1);
 	}
 
 	public static void pQsort(final int[] arr) {
@@ -106,7 +106,7 @@ public class Quicksort {
 		int[] intarray = new int[n];
 		int count = 0;
 		while (count < n) {
-			intarray[count] = (int) (Math.random() * 100);
+			intarray[count] = (int) (Math.random() * 1000);
 			count++;
 		}
 		return intarray;
@@ -114,7 +114,7 @@ public class Quicksort {
 
 	public static void main(String[] args) {
 		int med = 0;
-		for (int y = 0; y < 50; y++) {
+//	for (int y = 0; y < 50; y++) {
 			for (int x = 8000; x > 50; x = x - 10) {
 				int[] intarray = createArray(x);
 				int[] intarray2 = createArray(x);
@@ -135,19 +135,21 @@ public class Quicksort {
 				sQsort(intarray);
 				long timesQsort2 = System.nanoTime();
 				long total = timesQsort2 - timesQsort;
+				System.out.println(isCorrect(intarray));
 				// System.out.println(total+" Nanosekunder     sQsort");
 
 				long time = System.nanoTime();
-				insertionSort(intarray2, 0, intarray2.length - 1);
+				insertionSort(intarray2, 0, intarray2.length);
 				long time2 = System.nanoTime();
+				System.out.println(isCorrect(intarray2));
 				long total2 = time2 - time;
 				// System.out.println(total2+" Nanosekunder     insertionsort");
 				if (total > total2) {
 					med += x;
 					System.out.println(x);
-					break;
+					
 				}
-			}
+	//		}
 
 		}
 		System.out.println(med / 50);
