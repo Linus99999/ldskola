@@ -1,3 +1,6 @@
+%% David Rönn Jansson
+%% Linus Östren
+%%
 %% - Client module
 %% - The client module creates a parallel process by spawning handler. 
 %% - The handler does the following: 
@@ -78,7 +81,7 @@ connected(Window, ServerPid) ->
 
 %% - Asking to process a request
 process(Window, ServerPid, Transaction) ->
-    ServerPid ! {request, self(), length(Transaction)}, %% Send a request to server and wait for proceed message
+    ServerPid ! {request, self(), length(Transaction)}, %% Send a request to server and wait for proceed message. Added how many elements the Transaction contains to resolve atomacity.
     receive
 	{proceed, ServerPid} -> 
 	    send(Window, ServerPid, Transaction); %% received green light send the transaction.
