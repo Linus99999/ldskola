@@ -29,7 +29,7 @@ handler(Host) ->
 %% the connector
 disconnected(Window) ->
     receive
-	{connected, ServerPid} -> 
+	{connected, ServerPid} ->
 	    insert_str(Window, "Connected to the transaction server\n"),
 	    set_title(Window, "Connected"),
 	    connected(Window, ServerPid);
@@ -78,10 +78,11 @@ connected(Window, ServerPid) ->
 
 %% - Asking to process a request
 process(Window, ServerPid, Transaction) ->
-    ServerPid ! {request, self()}, %% Send a request to server and wait for proceed message
+    ServerPid ! {request, self(), length(Transaction)}, %% Send a request to server and wait for proceed message
     receive
 	{proceed, ServerPid} -> send(Window, ServerPid, Transaction); %% received green light send the transaction.
 	{close, ServerPid} -> exit(serverDied);
+	{busy, ServerPid} -> insert_str(Window, "Server is busy at the moment, please try again"); %% added this to be able to recieve if the server is blocked.
 	Other ->
 	    io:format("client active unexpected: ~p~n",[Other])
     end.
@@ -102,10 +103,14 @@ send(Window, ServerPid, []) ->
     end;
 send(Window, ServerPid, [H|T]) -> 
     sleep(3), 
-    case loose(0) of
+    case loose(4) of %% Chance to fail
 	%% In order to handle losses, think about adding an extra field to the message sent
-	false -> ServerPid ! {action, self(), H}; 
-        true -> ok
+	false -> 
+	    io:format("false"),
+	    ServerPid ! {action, self(), H}; 
+        true ->
+	    io:format("true"),
+	    ok
     end,
     send(Window, ServerPid, T).
 %%%%%%%%%%%%%%%%%%%%%%% Active Window %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
