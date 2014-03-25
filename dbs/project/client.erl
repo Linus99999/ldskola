@@ -53,7 +53,7 @@ try_to_connect(Parent, Host) ->
 			   exit(connectorFinished);
 	Any -> io:format("Unexpected message~p.~n",[Any])
     after 5000 ->
-	io:format("Unable to connect to the transaction server at node~p. Restart the client application later.~n",[Host])
+	    io:format("Unable to connect to the transaction server at node~p. Restart the client application later.~n",[Host])
     end,
     exit(serverBusy).
 %%%%%%%%%%%%%%%%%%%%%%% CONNECTOR %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -80,9 +80,13 @@ connected(Window, ServerPid) ->
 process(Window, ServerPid, Transaction) ->
     ServerPid ! {request, self(), length(Transaction)}, %% Send a request to server and wait for proceed message
     receive
-	{proceed, ServerPid} -> send(Window, ServerPid, Transaction); %% received green light send the transaction.
-	{close, ServerPid} -> exit(serverDied);
-	{busy, ServerPid} -> insert_str(Window, "Server is busy at the moment, please try again"); %% added this to be able to recieve if the server is blocked.
+	{proceed, ServerPid} -> 
+	    send(Window, ServerPid, Transaction); %% received green light send the transaction.
+	{close, ServerPid} -> 
+	    exit(serverDied);
+	{busy, ServerPid} -> 
+	    insert_str(Window, "Server is busy at the moment, please try again"),
+	    connected(Window, ServerPid); %% added this to be able to recieve if the server is blocked.
 	Other ->
 	    io:format("client active unexpected: ~p~n",[Other])
     end.
@@ -92,9 +96,16 @@ send(Window, ServerPid, []) ->
     ServerPid ! {confirm, self()}, %% Once all the list (transaction) items sent, send confirmation
     receive
 	{abort, ServerPid} -> insert_str(Window, "Aborted... type run if you want to try again!\n"),
-		       connected(Window, ServerPid);
-	{committed, ServerPid} -> insert_str(Window, "Transaction succeeded!\n"),
-			  connected(Window, ServerPid);
+			      connected(Window, ServerPid);
+	{committed, ServerPid, Reads} -> 
+	    case Reads of 
+		[] ->
+		    insert_str(Window, "Transaction succeeded!\n");
+		_ ->
+		    insert_str(Window, "Transaction succeeded!\n"),
+		    insert_str(Window, io_lib:format("Reads:\n ~p~n", [Reads]))
+	    end,
+	    connected(Window, ServerPid);
 	{'EXIT', Window, windowDestroyed} -> end_client(ServerPid);
 	{close, ServerPid} -> 
 	    exit(serverDied);
@@ -106,10 +117,9 @@ send(Window, ServerPid, [H|T]) ->
     case loose(4) of %% Chance to fail
 	%% In order to handle losses, think about adding an extra field to the message sent
 	false -> 
-	    io:format("false"),
 	    ServerPid ! {action, self(), H}; 
         true ->
-	    io:format("true"),
+	    io:format("Message lost"),
 	    ok
     end,
     send(Window, ServerPid, T).
@@ -129,7 +139,7 @@ end_client(ServerPid) ->
 sleep(Latency) ->
     receive
     after 1000*random:uniform(Latency) ->
-	  true
+	    true
     end.
 
 %% - Loses messages randomly
@@ -145,7 +155,7 @@ loose(Lossyness) ->
 	Val >= Lossyness -> false;
 	true -> true
     end.
-    
-	    
 
-		  
+
+
+
